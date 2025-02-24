@@ -30,12 +30,18 @@ kotlin {
             //Basic impl
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+
+            //Material 3
+            implementation(libs.androidx.material3)
+            //Coil
+            implementation(libs.coil.compose)
+            //Lottie
+            implementation(libs.lottie)
         }
         desktopMain.dependencies {
             //Basic impl
