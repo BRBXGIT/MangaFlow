@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    //Serialization
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -25,6 +27,9 @@ kotlin {
             //Basic impl
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            //Ktor
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             //Basic impl
@@ -42,11 +47,16 @@ kotlin {
             implementation(libs.coil.compose)
             //Lottie
             implementation(libs.lottie)
+            //Ktor
+            implementation(libs.bundles.ktor)
         }
         desktopMain.dependencies {
             //Basic impl
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+
+            //Ktor
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }

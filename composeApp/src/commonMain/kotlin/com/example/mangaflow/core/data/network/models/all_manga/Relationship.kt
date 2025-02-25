@@ -1,0 +1,7 @@
+package com.example.mangaflow.core.data.network.models.all_manga
+
+data class Relationship(
+    val id: String,
+    val related: String,
+    val type: String
+)
