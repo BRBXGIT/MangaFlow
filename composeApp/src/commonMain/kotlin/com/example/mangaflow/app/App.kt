@@ -33,7 +33,9 @@ fun App() {
         ) {
             var visible by remember { mutableStateOf(false) }
             Button(
-                onClick = { visible = !visible }
+                onClick = {
+                    visible = !visible
+                }
             ) {
                 Text(text = "Click me!")
             }

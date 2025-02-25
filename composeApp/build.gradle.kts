@@ -84,7 +84,7 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "com.example.mangaflow.MainKt"
+        mainClass = "com.example.mangaflow.app.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
