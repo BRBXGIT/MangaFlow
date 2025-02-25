@@ -30,6 +30,9 @@ kotlin {
 
             //Ktor
             implementation(libs.ktor.client.okhttp)
+            //Koin
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             //Basic impl
@@ -49,6 +52,12 @@ kotlin {
             implementation(libs.lottie)
             //Ktor
             implementation(libs.bundles.ktor)
+            //Koin
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.viewmodel)
+            implementation(libs.navigation.compose)
         }
         desktopMain.dependencies {
             //Basic impl
