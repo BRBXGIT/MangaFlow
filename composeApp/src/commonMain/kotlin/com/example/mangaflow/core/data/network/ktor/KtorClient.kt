@@ -12,8 +12,6 @@ import java.rmi.server.ServerCloneException
 class KtorClient(
     private val httpClient: HttpClient
 ) {
-    private val baseUrl = "https://api.mangadex.org/"
-
     private fun processNetworkErrors(statusCode: Int): Result.Error<NetworkError> {
         return when(statusCode) {
             401 -> Result.Error(NetworkError.UNAUTHORIZED)
@@ -25,6 +23,8 @@ class KtorClient(
             else -> Result.Error(NetworkError.UNKNOWN)
         }
     }
+
+    private val baseUrl = "https://api.mangadex.org/"
 
     suspend fun getMangaByTitle(title: String?): Result<AllMangaResponse, NetworkError> {
         val response = try {

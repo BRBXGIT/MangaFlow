@@ -52,6 +52,7 @@ kotlin {
             implementation(libs.lottie)
             //Ktor
             implementation(libs.bundles.ktor)
+            implementation(libs.ktor.client.okhttp)
             //Koin
             api(libs.koin.core)
             implementation(libs.koin.compose)
@@ -65,9 +66,6 @@ kotlin {
             //Basic impl
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-
-            //Ktor
-            implementation(libs.ktor.client.okhttp)
         }
     }
 }
