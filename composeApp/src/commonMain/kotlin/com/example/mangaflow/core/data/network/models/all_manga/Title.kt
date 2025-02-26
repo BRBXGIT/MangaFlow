@@ -1,5 +1,8 @@
 package com.example.mangaflow.core.data.network.models.all_manga
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Title(
-    val en: String
+    val en: String = ""
 )
