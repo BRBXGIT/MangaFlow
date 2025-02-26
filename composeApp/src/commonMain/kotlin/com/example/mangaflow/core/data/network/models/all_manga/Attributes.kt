@@ -1,5 +1,8 @@
 package com.example.mangaflow.core.data.network.models.all_manga
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Attributes(
     val altTitles: List<AltTitle>,
     val availableTranslatedLanguages: List<String>,

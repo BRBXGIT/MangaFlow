@@ -8,7 +8,6 @@ import com.example.mangaflow.feature.manga_screen.screen.MangaScreenVM
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.Dispatchers
 import org.koin.compose.viewmodel.dsl.viewModelOf
-import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

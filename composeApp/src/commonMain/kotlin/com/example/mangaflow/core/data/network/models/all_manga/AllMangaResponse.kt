@@ -1,11 +1,10 @@
 package com.example.mangaflow.core.data.network.models.all_manga
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class AllMangaResponse(
-    val data: List<@Contextual Data>,
+    val data: List<Data>,
     val limit: Int,
     val offset: Int,
     val response: String,

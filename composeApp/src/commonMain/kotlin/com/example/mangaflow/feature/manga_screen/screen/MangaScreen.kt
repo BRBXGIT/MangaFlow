@@ -15,6 +15,7 @@ import com.example.mangaflow.core.design_system.theme.mColors
 fun MangaScreen(
     viewModel: MangaScreenVM
 ) {
+    viewModel.fetchAllManga()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
