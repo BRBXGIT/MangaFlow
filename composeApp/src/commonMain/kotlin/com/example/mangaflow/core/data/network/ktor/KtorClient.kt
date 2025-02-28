@@ -6,7 +6,6 @@ import com.example.mangaflow.core.data.network.utils.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import io.ktor.util.network.UnresolvedAddressException
 import io.ktor.utils.io.errors.IOException
 import java.rmi.server.ServerCloneException
 
@@ -27,10 +26,14 @@ class KtorClient(
 
     private val baseUrl = "https://api.mangadex.org/"
 
-    suspend fun getMangaByTitle(title: String?): Result<AllMangaResponse, NetworkError> {
+    suspend fun getMangaByTitle(
+        title: String?,
+        offset: Int,
+        limit: Int
+    ): Result<AllMangaResponse, NetworkError> {
         val response = try {
             httpClient.get(
-                urlString = if(title != null) "$baseUrl/manga?title=$title" else "$baseUrl/manga"
+                urlString = if(title != null) "$baseUrl/manga?title=$title&limit=$limit&offset=$offset" else "$baseUrl/manga?limit=$limit&offset=$offset"
             )
         } catch(e: IOException) { //Use IOException cause UnresolvedAddressException doesn't work
             return Result.Error(NetworkError.NO_INTERNET)

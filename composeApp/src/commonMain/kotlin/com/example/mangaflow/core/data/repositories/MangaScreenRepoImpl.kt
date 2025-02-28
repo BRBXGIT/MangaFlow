@@ -10,7 +10,11 @@ class MangaScreenRepoImpl(
     private val ktorClient: KtorClient
 ): MangaScreenRepo {
 
-    override suspend fun getMangaByTitle(title: String?): Result<AllMangaResponse, NetworkError> {
-        return ktorClient.getMangaByTitle(title)
+    override suspend fun getMangaByTitle(
+        title: String?,
+        offset: Int,
+        limit: Int
+    ): Result<AllMangaResponse, NetworkError> {
+        return ktorClient.getMangaByTitle(title, offset, limit)
     }
 }

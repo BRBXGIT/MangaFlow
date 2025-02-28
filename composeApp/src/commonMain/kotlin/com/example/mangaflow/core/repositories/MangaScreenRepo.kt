@@ -6,5 +6,9 @@ import com.example.mangaflow.core.data.network.utils.Result
 
 interface MangaScreenRepo {
 
-    suspend fun getMangaByTitle(title: String?): Result<AllMangaResponse, NetworkError>
+    suspend fun getMangaByTitle(
+        title: String? = null,
+        offset: Int = 0,
+        limit: Int = 20
+    ): Result<AllMangaResponse, NetworkError>
 }
