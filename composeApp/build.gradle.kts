@@ -28,8 +28,6 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
 
-            //Ktor
-            implementation(libs.ktor.client.okhttp)
             //Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -61,14 +59,13 @@ kotlin {
             //Nav
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
-            //Coroutines
-            implementation(libs.kotlinx.coroutines.test)
         }
         desktopMain.dependencies {
             //Basic impl
             implementation(compose.desktop.currentOs)
             //Coroutines
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }
