@@ -34,8 +34,6 @@ class MangaScreenVM(
     private val limit = 20
     private var offset = 0
 
-//    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-
     fun fetchAllManga() {
         viewModelScope.launch(dispatcherIo) {
             val response = repository.getMangaByTitle(offset = offset, limit = limit)
