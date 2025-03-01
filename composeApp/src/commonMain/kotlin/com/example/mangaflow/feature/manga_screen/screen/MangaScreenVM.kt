@@ -2,8 +2,12 @@ package com.example.mangaflow.feature.manga_screen.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mangaflow.common.functions.processNetworkErrorsForUi
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
+import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
+import com.example.mangaflow.core.design_system.snackbars.SnackbarController
+import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
 import com.example.mangaflow.core.repositories.MangaScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +20,7 @@ class MangaScreenVM(
     private val repository: MangaScreenRepo,
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
+    //Something like a custom paging :)
     private val _allManga = MutableStateFlow<List<MangaByTitleData>>(emptyList())
     val allManga = _allManga.stateIn(
         viewModelScope,
@@ -30,7 +35,15 @@ class MangaScreenVM(
         viewModelScope.launch(dispatcherIo) {
             val response = repository.getMangaByTitle(offset = offset, limit = limit)
             response.onError { error ->
-                println("TAG: ${error.name}") //TODO make normal extensions handling
+                SnackbarController.sendEvent(
+                    SnackbarEvent(
+                        message = processNetworkErrorsForUi(error),
+                        action = SnackbarAction(
+                            name = "Refresh",
+                            action = { fetchAllManga() }
+                        )
+                    )
+                )
             }
             response.onSuccess { data ->
                 _allManga.value += data.data
