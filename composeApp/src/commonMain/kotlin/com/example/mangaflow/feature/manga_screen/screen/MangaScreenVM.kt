@@ -10,6 +10,9 @@ import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
 import com.example.mangaflow.core.repositories.MangaScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -30,6 +33,8 @@ class MangaScreenVM(
 
     private val limit = 20
     private var offset = 0
+
+//    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     fun fetchAllManga() {
         viewModelScope.launch(dispatcherIo) {

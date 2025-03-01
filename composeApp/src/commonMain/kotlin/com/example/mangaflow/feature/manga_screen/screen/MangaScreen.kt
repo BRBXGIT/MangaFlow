@@ -52,7 +52,12 @@ fun MangaScreen(
         }
     }
 
-    viewModel.fetchAllManga()
+    val allManga = viewModel.allManga.collectAsStateWithLifecycle().value
+    LaunchedEffect(allManga) {
+        if(allManga.isEmpty()) {
+            viewModel.fetchAllManga()
+        }
+    }
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier
@@ -74,7 +79,6 @@ fun MangaScreen(
                     }
             }
 
-            val allManga = viewModel.allManga.collectAsStateWithLifecycle().value
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,

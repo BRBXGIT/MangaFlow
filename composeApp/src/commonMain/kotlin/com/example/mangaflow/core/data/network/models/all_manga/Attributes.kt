@@ -9,7 +9,7 @@ data class Attributes(
     @SerialName("altTitles")
     val altTitles: List<AltTitle> = listOf(),
     @SerialName("availableTranslatedLanguages")
-    val availableTranslatedLanguages: List<String> = listOf(),
+    val availableTranslatedLanguages: List<String?> = listOf(),
     @SerialName("chapterNumbersResetOnNewVolume")
     val chapterNumbersResetOnNewVolume: Boolean = false,
     @SerialName("contentRating")

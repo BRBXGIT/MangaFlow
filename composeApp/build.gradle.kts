@@ -61,10 +61,13 @@ kotlin {
             //Nav
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
+            //Coroutines
+            implementation(libs.kotlinx.coroutines.test)
         }
         desktopMain.dependencies {
             //Basic impl
             implementation(compose.desktop.currentOs)
+            //Coroutines
             implementation(libs.kotlinx.coroutines.swing)
         }
     }
