@@ -9,7 +9,7 @@ data class Attributes(
     @SerialName("altTitles")
     val altTitles: List<AltTitle> = listOf(),
     @SerialName("availableTranslatedLanguages")
-    val availableTranslatedLanguages: List<String?> = listOf(),
+    val availableTranslatedLanguages: List<String> = listOf(),
     @SerialName("chapterNumbersResetOnNewVolume")
     val chapterNumbersResetOnNewVolume: Boolean = false,
     @SerialName("contentRating")
@@ -21,13 +21,13 @@ data class Attributes(
     @SerialName("isLocked")
     val isLocked: Boolean = false,
     @SerialName("lastChapter")
-    val lastChapter: String? = "",
+    val lastChapter: String = "",
     @SerialName("lastVolume")
-    val lastVolume: String? = "",
+    val lastVolume: String = "",
     @SerialName("latestUploadedChapter")
     val latestUploadedChapter: String = "",
     @SerialName("links")
-    val links: Links? = Links(),
+    val links: Links = Links(),
     @SerialName("originalLanguage")
     val originalLanguage: String = "",
     @SerialName("publicationDemographic")
@@ -45,5 +45,5 @@ data class Attributes(
     @SerialName("version")
     val version: Int = 0,
     @SerialName("year")
-    val year: Int? = 0
+    val year: Int = 0
 )

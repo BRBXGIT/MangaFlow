@@ -3,6 +3,7 @@ package com.example.mangaflow.feature.manga_screen.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
+import com.example.mangaflow.core.data.network.models.all_manga.Data as MangaByTitleData
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
@@ -10,14 +11,10 @@ import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
 import com.example.mangaflow.core.repositories.MangaScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.example.mangaflow.core.data.network.models.all_manga.Data as MangaByTitleData
 
 class MangaScreenVM(
     private val repository: MangaScreenRepo,

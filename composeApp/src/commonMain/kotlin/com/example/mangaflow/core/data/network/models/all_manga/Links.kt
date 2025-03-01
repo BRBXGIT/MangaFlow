@@ -19,7 +19,7 @@ data class Links(
     @SerialName("ebj")
     val ebj: String? = null,
     @SerialName("engtl")
-    val engTl: String? = null,
+    val engtl: String? = null,
     @SerialName("kt")
     val kt: String? = null,
     @SerialName("mal")

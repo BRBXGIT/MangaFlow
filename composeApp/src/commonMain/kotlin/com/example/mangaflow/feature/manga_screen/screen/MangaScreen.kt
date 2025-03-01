@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 fun MangaScreen(
     viewModel: MangaScreenVM
 ) {
+    //Snackbars stuff
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     ObserveAsEvents(flow = SnackbarController.events, snackbarHostState) { event ->
@@ -51,6 +52,7 @@ fun MangaScreen(
         }
     }
 
+    //Use launched effect to don't fetch data multiple times due to recomposition
     val allManga = viewModel.allManga.collectAsStateWithLifecycle().value
     LaunchedEffect(allManga) {
         if(allManga.isEmpty()) {
@@ -84,6 +86,7 @@ fun MangaScreen(
                 state = state
             ) {
                 items(allManga) { manga ->
+                    println("COVER: id: '${manga.id}' ${manga.relationships}")
                     Text(
                         text = manga.id
                     )

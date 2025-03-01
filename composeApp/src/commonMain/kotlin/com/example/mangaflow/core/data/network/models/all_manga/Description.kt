@@ -10,12 +10,14 @@ data class Description(
     val en: String = "",
     @SerialName("es")
     val es: String? = null,
+    @SerialName("es-la")
+    val esLa: String? = null,
     @SerialName("fr")
     val fr: String? = null,
-    @SerialName("id")
-    val id: String? = null,
-    @SerialName("pl")
-    val pl: String? = null,
+    @SerialName("it")
+    val it: String? = null,
+    @SerialName("ja")
+    val ja: String? = null,
     @SerialName("pt-br")
     val ptBr: String? = null,
     @SerialName("ru")
