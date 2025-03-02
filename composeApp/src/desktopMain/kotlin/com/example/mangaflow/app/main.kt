@@ -5,7 +5,6 @@ import androidx.compose.ui.window.application
 import com.example.mangaflow.di.initKoin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.test.setMain
 

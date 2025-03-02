@@ -16,6 +16,7 @@ fun NavGraph() {
     val navController = rememberNavController()
 
     KoinContext {
+        //Declare values here to don't fetch mangaLists multiple times
         val mangaScreenVM = koinViewModel<MangaScreenVM>()
 
         NavHost(
