@@ -21,9 +21,9 @@ data class Attributes(
     @SerialName("isLocked")
     val isLocked: Boolean = false,
     @SerialName("lastChapter")
-    val lastChapter: String = "",
+    val lastChapter: String? = "",
     @SerialName("lastVolume")
-    val lastVolume: String = "",
+    val lastVolume: String? = "",
     @SerialName("latestUploadedChapter")
     val latestUploadedChapter: String = "",
     @SerialName("links")

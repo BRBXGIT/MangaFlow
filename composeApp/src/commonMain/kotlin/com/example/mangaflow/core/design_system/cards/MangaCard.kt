@@ -28,7 +28,8 @@ import com.example.mangaflow.core.design_system.theme.mTypography
 fun MangaCard(
     index: Int,
     coverImageUrl: String,
-    title: String
+    title: String,
+    genres: String
 ) {
     Card(
         shape = mShapes.small,
@@ -73,7 +74,7 @@ fun MangaCard(
 
 
                 Text(
-                    text = "Genres",
+                    text = genres,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = mTypography.bodySmall.copy(

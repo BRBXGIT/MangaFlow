@@ -32,7 +32,7 @@ class KtorClient(
     ): Result<AllMangaResponse, NetworkError> {
         val response = try {
             httpClient.get(
-                urlString = if(title != null) "$baseUrl/manga?title=$title&limit=$limit&offset=$offset&includes[]=cover_art" else "$baseUrl/manga?limit=$limit&offset=$offset&includes[]=cover_art"
+                urlString = if(title != null) "$baseUrl/manga?title=$title&limit=$limit&offset=$offset&includes[]=cover_art&includes[]=genres" else "$baseUrl/manga?limit=$limit&offset=$offset&includes[]=cover_art&includes[]=genres"
             )
         } catch(e: kotlinx.io.IOException) { //Use IOException cause UnresolvedAddressException doesn't work
             return Result.Error(NetworkError.NO_INTERNET)

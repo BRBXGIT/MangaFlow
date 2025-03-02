@@ -38,10 +38,14 @@ fun AllMangaLVGSection(
                 it.type == "cover_art"
             }[0].attributes?.fileName
 
+            val mangaGenres = manga.attributes.tags.filter {
+                it.attributes.group == "genre"
+            }.joinToString(separator = ", ") { it.attributes.name.en }
             MangaCard(
                 index = index,
-                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename",
-                title = manga.attributes.title.en
+                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename.256.jpg",
+                title = manga.attributes.title.en,
+                genres = mangaGenres
             )
         }
     }
