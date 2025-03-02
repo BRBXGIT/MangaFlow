@@ -22,6 +22,7 @@ import com.example.mangaflow.core.design_system.snackbars.ObserveAsEvents
 import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.manga_screen.sections.AllMangaLVGSection
+import com.example.mangaflow.feature.manga_screen.sections.MangaScreenTopBar
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,6 +52,7 @@ fun MangaScreen(
 
     //Use launched effect to don't fetch data multiple times due to recomposition
     val allManga = viewModel.allManga.collectAsStateWithLifecycle().value
+    val allMangaLoadingState = viewModel.allMangaLoading.collectAsStateWithLifecycle().value
     LaunchedEffect(allManga) {
         if(allManga.isEmpty()) {
             viewModel.fetchAllManga()
@@ -58,7 +60,7 @@ fun MangaScreen(
     }
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
-        topBar = { MangaScreenTopBar(topBarScrollBehavior) },
+        topBar = { MangaScreenTopBar(topBarScrollBehavior, allMangaLoadingState) }, //TODO make loading for user
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier
             .fillMaxSize()

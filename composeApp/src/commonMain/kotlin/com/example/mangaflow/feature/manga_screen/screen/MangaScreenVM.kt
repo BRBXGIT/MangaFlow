@@ -11,6 +11,7 @@ import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
 import com.example.mangaflow.core.repositories.MangaScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -27,12 +28,19 @@ class MangaScreenVM(
         SharingStarted.WhileSubscribed(5_000),
         emptyList()
     )
+    private val _allMangaLoading = MutableStateFlow(true)
+    val allMangaLoading = _allMangaLoading.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        true
+    )
 
     private val limit = 20
     private var offset = 0
 
     fun fetchAllManga() {
         viewModelScope.launch(dispatcherIo) {
+            _allMangaLoading.value = true
             val response = repository.getMangaByTitle(offset = offset, limit = limit)
             response.onError { error ->
                 SnackbarController.sendEvent(
@@ -47,6 +55,7 @@ class MangaScreenVM(
             }
             response.onSuccess { data ->
                 _allManga.value += data.data
+                _allMangaLoading.value = false
                 offset += limit
             }
         }
