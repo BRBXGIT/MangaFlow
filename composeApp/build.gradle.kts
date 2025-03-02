@@ -31,6 +31,8 @@ kotlin {
             //Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            //Coil
+            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             //Basic impl
@@ -46,6 +48,7 @@ kotlin {
             implementation(libs.androidx.material3)
             //Coil
             implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
             //Lottie
             implementation(libs.lottie)
             //Ktor
@@ -66,6 +69,8 @@ kotlin {
             //Coroutines
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.kotlinx.coroutines.test)
+            //Coil
+            implementation(libs.ktor.client.java)
         }
     }
 }
