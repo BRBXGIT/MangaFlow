@@ -40,7 +40,8 @@ fun AllMangaLVGSection(
 
             MangaCard(
                 index = index,
-                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename"
+                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename",
+                title = manga.attributes.title.en
             )
         }
     }

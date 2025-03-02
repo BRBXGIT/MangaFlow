@@ -27,7 +27,8 @@ import com.example.mangaflow.core.design_system.theme.mTypography
 @Composable
 fun MangaCard(
     index: Int,
-    coverImageUrl: String
+    coverImageUrl: String,
+    title: String
 ) {
     Card(
         shape = mShapes.small,
@@ -53,34 +54,16 @@ fun MangaCard(
                 coverImageUrl = coverImageUrl
             )
 
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(6.dp)
-                    .background(
-                        color = mColors.primaryContainer,
-                        shape = mShapes.small
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Average score",
-                    style = mTypography.bodySmall.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = Modifier.padding(4.dp)
-                )
-            }
-
             Column(
                 modifier = Modifier
+                    .align(Alignment.BottomStart)
                     .fillMaxWidth()
                     .background(mColors.secondaryContainer)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Title",
+                    text = title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = mTypography.titleSmall.copy(
