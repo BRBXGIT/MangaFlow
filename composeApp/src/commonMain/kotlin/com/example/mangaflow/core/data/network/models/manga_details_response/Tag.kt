@@ -1,17 +1,17 @@
-package com.example.mangaflow.core.data.network.models.all_manga
+package com.example.mangaflow.core.data.network.models.manga_details_response
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Relationship(
+data class Tag(
     @SerialName("attributes")
-    val attributes: AttributesXX? = AttributesXX(),
+    val attributes: AttributesX = AttributesX(),
     @SerialName("id")
     val id: String = "",
-    @SerialName("related")
-    val related: String? = "",
+    @SerialName("relationships")
+    val relationships: List<Relationship?> = listOf(),
     @SerialName("type")
     val type: String = ""
 )

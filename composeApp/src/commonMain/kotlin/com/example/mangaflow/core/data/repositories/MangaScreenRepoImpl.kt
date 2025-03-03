@@ -1,13 +1,13 @@
 package com.example.mangaflow.core.data.repositories
 
-import com.example.mangaflow.core.data.network.ktor.KtorClient
-import com.example.mangaflow.core.data.network.models.all_manga.AllMangaResponse
+import com.example.mangaflow.core.data.network.ktor.MangaScreenKtorClient
+import com.example.mangaflow.core.data.network.models.all_manga_response.AllMangaResponse
 import com.example.mangaflow.core.data.network.utils.NetworkError
 import com.example.mangaflow.core.data.network.utils.Result
 import com.example.mangaflow.core.repositories.MangaScreenRepo
 
 class MangaScreenRepoImpl(
-    private val ktorClient: KtorClient
+    private val ktorClient: MangaScreenKtorClient
 ): MangaScreenRepo {
 
     override suspend fun getMangaByTitle(

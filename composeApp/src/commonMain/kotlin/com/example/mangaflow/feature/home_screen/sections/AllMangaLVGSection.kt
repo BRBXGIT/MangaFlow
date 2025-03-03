@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.cards.MangaCard
-import com.example.mangaflow.core.data.network.models.all_manga.Data as MangaByTitleData
+import com.example.mangaflow.core.data.network.models.all_manga_response.Data as MangaByTitleData
 
 @Composable
 fun AllMangaLVGSection(
@@ -34,6 +34,7 @@ fun AllMangaLVGSection(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         itemsIndexed(allManga) { index, manga ->
+            println("TAG: ${manga.id}")
             val mangaCoverFilename = manga.relationships.filter {
                 it.type == "cover_art"
             }[0].attributes?.fileName

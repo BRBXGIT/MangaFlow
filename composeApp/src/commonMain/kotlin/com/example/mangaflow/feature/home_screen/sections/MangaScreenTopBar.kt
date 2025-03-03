@@ -28,7 +28,7 @@ fun MangaScreenTopBar(
 ) {
     Column {
         TopAppBar(
-            title = { Text(text = "Manga") },
+            title = { Text(text = "Best manga") },
             scrollBehavior = scrollBehavior,
             actions = {
                 IconButton(onClick = { }) {
