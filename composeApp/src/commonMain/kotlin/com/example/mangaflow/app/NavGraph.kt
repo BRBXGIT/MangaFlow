@@ -1,11 +1,9 @@
 package com.example.mangaflow.app
 
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.example.mangaflow.common.functions.showNavRail
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
 import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 import com.example.mangaflow.feature.home_screen.navigation.homeScreen
@@ -15,7 +13,7 @@ import org.koin.compose.KoinContext
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
-@OptIn(KoinExperimentalAPI::class, ExperimentalMaterial3WindowSizeClassApi::class)
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
@@ -24,8 +22,7 @@ fun NavGraph() {
         //Declare values here to don't fetch mangaLists multiple times
         val mangaScreenVM = koinViewModel<MangaScreenVM>()
 
-        val windowSize = calculateWindowSizeClass()
-        val showNavRail = windowSize.widthSizeClass != WindowWidthSizeClass.Compact
+        val showNavRail = showNavRail()
         NavHost(
             startDestination = HomeScreenRoute,
             navController = navController
@@ -41,7 +38,10 @@ fun NavGraph() {
                 showNavRail = showNavRail
             )
 
-            profileScreen(navController)
+            profileScreen(
+                navController = navController,
+                showNavRail = showNavRail
+            )
         }
     }
 }

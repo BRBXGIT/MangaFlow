@@ -10,7 +10,11 @@ import kotlinx.serialization.Serializable
 data object ProfileScreenRoute
 
 fun NavGraphBuilder.profileScreen(
-    navController: NavController
+    navController: NavController,
+    showNavRail: Boolean
 ) = composable<ProfileScreenRoute> {
-    ProfileScreen(navController)
+    ProfileScreen(
+        navController = navController,
+        showNavRail = showNavRail
+    )
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.common.NavBar
+import com.example.mangaflow.feature.common.NavRail
 
 @Composable
 fun BookmarksScreen(
@@ -16,11 +17,19 @@ fun BookmarksScreen(
     showNavRail: Boolean
 ) {
     Scaffold(
-        bottomBar = { NavBar(navController) },
+        bottomBar = {
+            if(!showNavRail) {
+                NavBar(navController)
+            }
+        },
         modifier = Modifier
             .fillMaxSize()
             .background(mColors.background)
     ) { innerPadding ->
         Text("Bookmarks")
+    }
+
+    if(showNavRail) {
+        NavRail(navController)
     }
 }

@@ -9,17 +9,27 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.common.NavBar
+import com.example.mangaflow.feature.common.NavRail
 
 @Composable
 fun ProfileScreen(
-    navController: NavController
+    navController: NavController,
+    showNavRail: Boolean
 ) {
     Scaffold(
-        bottomBar = { NavBar(navController) },
+        bottomBar = {
+            if(!showNavRail) {
+                NavBar(navController)
+            }
+        },
         modifier = Modifier
             .fillMaxSize()
             .background(mColors.background)
     ) {
         Text("Profile crene")
+    }
+
+    if(showNavRail) {
+        NavRail(navController)
     }
 }
