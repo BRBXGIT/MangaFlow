@@ -46,6 +46,7 @@ kotlin {
 
             //Material 3
             implementation(libs.androidx.material3)
+            implementation(libs.material3.window.size)
             //Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)

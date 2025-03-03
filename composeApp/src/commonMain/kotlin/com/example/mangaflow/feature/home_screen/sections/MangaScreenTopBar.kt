@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.manga_screen.sections
+package com.example.mangaflow.feature.home_screen.sections
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

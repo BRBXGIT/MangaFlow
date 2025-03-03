@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.manga_screen.screen
+package com.example.mangaflow.feature.home_screen.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

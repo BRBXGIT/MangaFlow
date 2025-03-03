@@ -4,7 +4,7 @@ import com.example.mangaflow.core.data.network.ktor.KtorClient
 import com.example.mangaflow.core.data.network.ktor.createHttpClient
 import com.example.mangaflow.core.data.repositories.MangaScreenRepoImpl
 import com.example.mangaflow.core.repositories.MangaScreenRepo
-import com.example.mangaflow.feature.manga_screen.screen.MangaScreenVM
+import com.example.mangaflow.feature.home_screen.screen.MangaScreenVM
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.Dispatchers
 import org.koin.compose.viewmodel.dsl.viewModelOf

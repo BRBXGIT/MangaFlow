@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.manga_screen.sections
+package com.example.mangaflow.feature.home_screen.sections
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,8 +11,8 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mangaflow.core.data.network.models.all_manga.Data as MangaByTitleData
 import com.example.mangaflow.core.design_system.cards.MangaCard
+import com.example.mangaflow.core.data.network.models.all_manga.Data as MangaByTitleData
 
 @Composable
 fun AllMangaLVGSection(

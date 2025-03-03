@@ -1,16 +1,17 @@
-package com.example.mangaflow.feature.manga_screen.screen
+package com.example.mangaflow.feature.home_screen.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -18,18 +19,24 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.snackbars.ObserveAsEvents
 import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.theme.mColors
-import com.example.mangaflow.feature.manga_screen.sections.AllMangaLVGSection
-import com.example.mangaflow.feature.manga_screen.sections.MangaScreenTopBar
+import com.example.mangaflow.feature.common.NavBar
+import com.example.mangaflow.feature.common.NavRail
+import com.example.mangaflow.feature.home_screen.sections.AllMangaLVGSection
+import com.example.mangaflow.feature.home_screen.sections.MangaScreenTopBar
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MangaScreen(
-    viewModel: MangaScreenVM
+fun HomeScreen(
+    navController: NavController,
+    viewModel: MangaScreenVM,
+    showNavRail: Boolean
 ) {
     //Snackbars stuff
     val snackbarHostState = remember { SnackbarHostState() }
@@ -59,12 +66,25 @@ fun MangaScreen(
             viewModel.fetchAllManga()
         }
     }
+
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
-        topBar = { MangaScreenTopBar(topBarScrollBehavior, allMangaLoadingState) }, //TODO make loading for user
+        bottomBar = {
+            if(!showNavRail) {
+                NavBar(navController)
+            }
+        },
+        topBar = { MangaScreenTopBar(topBarScrollBehavior, allMangaLoadingState) },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier
             .fillMaxSize()
+            .then(
+                if(showNavRail) {
+                    Modifier.padding(start = 80.dp)
+                } else {
+                    Modifier.padding(start = 0.dp)
+                }
+            )
             .background(mColors.background)
             .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
@@ -83,5 +103,9 @@ fun MangaScreen(
             innerPadding = innerPadding,
             allManga = allManga
         )
+    }
+
+    if(showNavRail) {
+        NavRail(navController)
     }
 }
