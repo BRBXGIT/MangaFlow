@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.common.NavRail
+import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.MangaDetailsLargeScreens
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +58,12 @@ fun MangaDetailsScreen(
                 )
                 .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
         ) { innerPadding ->
-
+            if(showNavRail) {
+                MangaDetailsLargeScreens(
+                    innerPadding = innerPadding,
+                    manga = manga
+                )
+            }
         }
     }
 

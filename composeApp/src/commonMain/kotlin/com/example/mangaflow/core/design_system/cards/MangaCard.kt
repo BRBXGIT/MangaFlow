@@ -53,7 +53,9 @@ fun MangaCard(
         ) {
             MangaFlowAsyncImage(
                 index = index,
-                coverImageUrl = coverImageUrl
+                coverImageUrl = coverImageUrl,
+                height = 130.dp,
+                width = 100.dp
             )
 
             Column(

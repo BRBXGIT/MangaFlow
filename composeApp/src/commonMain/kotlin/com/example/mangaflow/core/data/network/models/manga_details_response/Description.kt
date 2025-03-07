@@ -17,7 +17,7 @@ data class Description(
     @SerialName("id")
     val id: String = "",
     @SerialName("it")
-    val `it`: String = "",
+    val it: String = "",
     @SerialName("ja")
     val ja: String = "",
     @SerialName("ka")

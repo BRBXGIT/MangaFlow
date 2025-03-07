@@ -3,12 +3,12 @@ package com.example.mangaflow.feature.manga_details_screen.screen.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
+import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
 import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
-import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 import com.example.mangaflow.core.repositories.MangaDetailsScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

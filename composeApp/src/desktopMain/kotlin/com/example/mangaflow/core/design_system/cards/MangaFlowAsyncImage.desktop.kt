@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import coil3.PlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
@@ -14,8 +14,10 @@ import coil3.size.Size
 
 @Composable
 actual fun MangaFlowAsyncImage(
-    index: Int,
-    coverImageUrl: String
+    index: Int?,
+    height: Dp,
+    width: Dp,
+    coverImageUrl: String,
 ) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(PlatformContext.INSTANCE)
@@ -27,6 +29,10 @@ actual fun MangaFlowAsyncImage(
         modifier = Modifier.fillMaxSize(),
         filterQuality = FilterQuality.Low,
         contentScale = ContentScale.Crop,
-        loading = { if(index <= 6) AnimatedShimmer(100.dp, 130.dp) }
+        loading = {
+            if(index != null) {
+                if(index <= 6) AnimatedShimmer(width, height)
+            }
+        }
     )
 }
