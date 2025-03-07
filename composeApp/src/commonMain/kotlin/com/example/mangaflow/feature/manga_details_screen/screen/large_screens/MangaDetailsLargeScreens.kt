@@ -27,8 +27,12 @@ fun MangaDetailsLargeScreens(
             val mangaCoverArtFileName = manga.relationships.filter {
                 it.type == "cover_art"
             }[0].attributes?.fileName
+            val mangaTitleJap = manga.attributes.altTitles
             LargeScreensHeader(
-                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName"
+                coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName",
+                titleEng = manga.attributes.title.en,
+                titleJap = "815",
+                author = "Kishimoto pidor"
             )
         }
     }
