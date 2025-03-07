@@ -4,7 +4,7 @@ import com.example.mangaflow.core.data.network.models.all_manga_response.AllMang
 import com.example.mangaflow.core.data.network.utils.NetworkError
 import com.example.mangaflow.core.data.network.utils.Result
 
-interface MangaScreenRepo {
+interface HomeScreenRepo {
 
     suspend fun getMangaByTitle(
         title: String? = null,

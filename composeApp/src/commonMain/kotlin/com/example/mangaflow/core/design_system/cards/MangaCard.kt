@@ -29,7 +29,8 @@ fun MangaCard(
     index: Int,
     coverImageUrl: String,
     title: String,
-    genres: String
+    genres: String,
+    onCardClick: () -> Unit
 ) {
     Card(
         shape = mShapes.small,
@@ -38,7 +39,7 @@ fun MangaCard(
             .height(280.dp)
             .clip(mShapes.small)
             .combinedClickable(
-                onClick = {  },
+                onClick = { onCardClick() },
                 onLongClick = {  }
             )
     ) {

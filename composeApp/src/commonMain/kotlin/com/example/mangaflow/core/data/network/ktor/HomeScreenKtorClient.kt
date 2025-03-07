@@ -10,7 +10,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import java.rmi.server.ServerCloneException
 
-class MangaScreenKtorClient(
+class HomeScreenKtorClient(
     private val httpClient: HttpClient
 ) {
     suspend fun getMangaByTitle(

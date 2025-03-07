@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.mangaflow.feature.home_screen.screen.HomeScreen
-import com.example.mangaflow.feature.home_screen.screen.MangaScreenVM
+import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,12 +12,12 @@ object HomeScreenRoute
 
 fun NavGraphBuilder.homeScreen(
     navController: NavController,
-    mangaScreenVM: MangaScreenVM,
+    homeScreenVM: HomeScreenVM,
     showNavRail: Boolean
 ) = composable<HomeScreenRoute> {
     HomeScreen(
         navController = navController,
-        viewModel = mangaScreenVM,
+        viewModel = homeScreenVM,
         showNavRail = showNavRail
     )
 }

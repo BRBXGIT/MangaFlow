@@ -18,7 +18,8 @@ import com.example.mangaflow.core.data.network.models.all_manga_response.Data as
 fun AllMangaLVGSection(
     state: LazyGridState,
     innerPadding: PaddingValues,
-    allManga: List<MangaByTitleData>
+    allManga: List<MangaByTitleData>,
+    onMangaCardClick: (String) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = Modifier
@@ -46,7 +47,10 @@ fun AllMangaLVGSection(
                 index = index,
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename.256.jpg",
                 title = manga.attributes.title.en,
-                genres = mangaGenres
+                genres = mangaGenres,
+                onCardClick = {
+                    onMangaCardClick(manga.id)
+                }
             )
         }
     }

@@ -22,7 +22,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MangaScreenTopBar(
+fun HomeScreenTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
     loadingState: Boolean
 ) {

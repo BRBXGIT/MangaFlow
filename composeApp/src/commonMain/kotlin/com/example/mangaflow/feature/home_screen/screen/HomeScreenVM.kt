@@ -8,7 +8,7 @@ import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
 import com.example.mangaflow.core.design_system.snackbars.SnackbarController
 import com.example.mangaflow.core.design_system.snackbars.SnackbarEvent
-import com.example.mangaflow.core.repositories.MangaScreenRepo
+import com.example.mangaflow.core.repositories.HomeScreenRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import com.example.mangaflow.core.data.network.models.all_manga_response.Data as MangaByTitleData
 
-class MangaScreenVM(
-    private val repository: MangaScreenRepo,
+class HomeScreenVM(
+    private val repository: HomeScreenRepo,
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
     //Something like a custom paging :)

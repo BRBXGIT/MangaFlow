@@ -11,7 +11,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -28,14 +27,15 @@ import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.common.NavBar
 import com.example.mangaflow.feature.common.NavRail
 import com.example.mangaflow.feature.home_screen.sections.AllMangaLVGSection
-import com.example.mangaflow.feature.home_screen.sections.MangaScreenTopBar
+import com.example.mangaflow.feature.home_screen.sections.HomeScreenTopBar
+import com.example.mangaflow.feature.manga_details_screen.navigation.MangaDetailsScreenRoute
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: MangaScreenVM,
+    viewModel: HomeScreenVM,
     showNavRail: Boolean
 ) {
     //Snackbars stuff
@@ -74,7 +74,7 @@ fun HomeScreen(
                 NavBar(navController)
             }
         },
-        topBar = { MangaScreenTopBar(topBarScrollBehavior, allMangaLoadingState) },
+        topBar = { HomeScreenTopBar(topBarScrollBehavior, allMangaLoadingState) },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier
             .fillMaxSize()
@@ -101,7 +101,12 @@ fun HomeScreen(
         AllMangaLVGSection(
             state = state,
             innerPadding = innerPadding,
-            allManga = allManga
+            allManga = allManga,
+            onMangaCardClick = { mangaId ->
+                navController.navigate(
+                    MangaDetailsScreenRoute(mangaId)
+                )
+            }
         )
     }
 

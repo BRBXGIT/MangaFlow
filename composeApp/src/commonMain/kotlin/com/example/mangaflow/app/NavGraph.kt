@@ -7,7 +7,8 @@ import com.example.mangaflow.common.functions.showNavRail
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
 import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 import com.example.mangaflow.feature.home_screen.navigation.homeScreen
-import com.example.mangaflow.feature.home_screen.screen.MangaScreenVM
+import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
+import com.example.mangaflow.feature.manga_details_screen.navigation.mangaDetailsScreen
 import com.example.mangaflow.feature.profile_screen.navigation.profileScreen
 import org.koin.compose.KoinContext
 import org.koin.compose.viewmodel.koinViewModel
@@ -20,7 +21,7 @@ fun NavGraph() {
 
     KoinContext {
         //Declare values here to don't fetch mangaLists multiple times
-        val mangaScreenVM = koinViewModel<MangaScreenVM>()
+        val homeScreenVM = koinViewModel<HomeScreenVM>()
 
         val showNavRail = showNavRail()
         NavHost(
@@ -29,7 +30,7 @@ fun NavGraph() {
         ) {
             homeScreen(
                 navController = navController,
-                mangaScreenVM = mangaScreenVM,
+                homeScreenVM = homeScreenVM,
                 showNavRail = showNavRail
             )
 
@@ -39,6 +40,11 @@ fun NavGraph() {
             )
 
             profileScreen(
+                navController = navController,
+                showNavRail = showNavRail
+            )
+
+            mangaDetailsScreen(
                 navController = navController,
                 showNavRail = showNavRail
             )

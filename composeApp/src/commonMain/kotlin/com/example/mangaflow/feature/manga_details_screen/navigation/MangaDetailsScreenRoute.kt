@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.mangaflow.feature.manga_details_screen.screen.MangaDetailsScreen
-import com.example.mangaflow.feature.manga_details_screen.screen.MangaDetailsScreenVM
+import com.example.mangaflow.feature.manga_details_screen.screen.common.MangaDetailsScreen
+import com.example.mangaflow.feature.manga_details_screen.screen.common.MangaDetailsScreenVM
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
