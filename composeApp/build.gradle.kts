@@ -63,6 +63,8 @@ kotlin {
             //Nav
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
+            //Haze materials
+            implementation(libs.haze)
         }
         desktopMain.dependencies {
             //Basic impl

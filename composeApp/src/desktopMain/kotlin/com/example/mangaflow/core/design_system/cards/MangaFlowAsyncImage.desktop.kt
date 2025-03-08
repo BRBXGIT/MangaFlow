@@ -18,6 +18,7 @@ actual fun MangaFlowAsyncImage(
     height: Dp,
     width: Dp,
     coverImageUrl: String,
+    modifier: Modifier
 ) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(PlatformContext.INSTANCE)
@@ -26,7 +27,7 @@ actual fun MangaFlowAsyncImage(
             .size(Size.ORIGINAL)
             .build(),
         contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         filterQuality = FilterQuality.Low,
         contentScale = ContentScale.Crop,
         loading = {

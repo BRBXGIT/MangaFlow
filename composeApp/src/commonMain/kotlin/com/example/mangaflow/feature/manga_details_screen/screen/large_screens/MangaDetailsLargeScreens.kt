@@ -17,11 +17,10 @@ fun MangaDetailsLargeScreens(
     manga: MangaDetailsData
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
+            .padding(bottom = innerPadding.calculateBottomPadding())
     ) {
         item {
             val mangaCoverArtFileName = manga.relationships.filter {
@@ -34,7 +33,8 @@ fun MangaDetailsLargeScreens(
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName",
                 titleEng = manga.attributes.title.en,
                 titleJap = mangaTitleJap.toString(),
-                author = "Kishimoto pidor"
+                author = "Kishimoto pidor",
+                topPadding = innerPadding.calculateTopPadding()
             )
         }
     }

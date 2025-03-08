@@ -1,6 +1,7 @@
 package com.example.mangaflow.core.design_system.cards
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 
 @Composable
@@ -9,4 +10,5 @@ expect fun MangaFlowAsyncImage(
     height: Dp,
     width: Dp,
     coverImageUrl: String,
+    modifier: Modifier = Modifier
 )
