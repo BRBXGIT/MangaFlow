@@ -48,150 +48,154 @@ fun CompactScreensHeader(
 ) {
     val hazeState = remember { HazeState() }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(160.dp + topPadding)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        MangaFlowAsyncImage(
-            height = 0.dp,
-            width = 0.dp,
-            coverImageUrl = coverImageUrl,
-            modifier = Modifier.hazeSource(hazeState)
-        )
-
         Box(
             modifier = Modifier
-                .matchParentSize()
-                .hazeEffect(
-                    state = hazeState,
-                    style = HazeStyle(
-                        backgroundColor = mColors.background,
-                        blurRadius = 8.dp,
-                        tint = HazeTint(
-                            color = mColors.background.copy(alpha = 0.5f),
-                            blendMode = BlendMode.SrcOver
-                        )
-                    )
-                ),
-            contentAlignment = Alignment.BottomCenter
+                .fillMaxWidth()
+                .height(160.dp + topPadding)
         ) {
+            MangaFlowAsyncImage(
+                height = 0.dp,
+                width = 0.dp,
+                coverImageUrl = coverImageUrl,
+                modifier = Modifier.hazeSource(hazeState)
+            )
+
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.7f)
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                mColors.background
+                    .matchParentSize()
+                    .hazeEffect(
+                        state = hazeState,
+                        style = HazeStyle(
+                            backgroundColor = mColors.background,
+                            blurRadius = 8.dp,
+                            tint = HazeTint(
+                                color = mColors.background.copy(alpha = 0.5f),
+                                blendMode = BlendMode.SrcOver
                             )
                         )
-                    )
-            )
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(160.dp + topPadding) //Same as the image height to create a bottom hit-box
-                .padding(
-                    top = topPadding,
-                    start = 16.dp,
-                    end = 16.dp
-                )
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(120.dp, 160.dp)
-                    .clip(mShapes.small),
-                contentAlignment = Alignment.Center
+                    ),
+                contentAlignment = Alignment.BottomCenter
             ) {
-                MangaFlowAsyncImage(
-                    index = 0,
-                    height = 130.dp + topPadding,
-                    width = 100.dp,
-                    coverImageUrl = coverImageUrl
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    mColors.background
+                                )
+                            )
+                        )
                 )
             }
 
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    Text(
-                        text = titleEng,
-                        style = mTypography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp + topPadding) //Same as the image height to create a bottom hit-box
+                    .padding(
+                        top = topPadding,
+                        start = 16.dp,
+                        end = 16.dp
                     )
-
-                    Text(
-                        text = titleJap,
-                        style = mTypography.titleSmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(120.dp, 160.dp)
+                        .clip(mShapes.small),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MangaFlowAsyncImage(
+                        index = 0,
+                        height = 130.dp + topPadding,
+                        width = 100.dp,
+                        coverImageUrl = coverImageUrl
                     )
                 }
 
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxHeight()
                 ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        Text(
+                            text = titleEng,
+                            style = mTypography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Text(
+                            text = titleJap,
+                            style = mTypography.titleSmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+
                     Text(
                         text = authors,
                         style = mTypography.titleSmall
                     )
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Button(
-                            onClick = {  },
-                            shape = mShapes.extraSmall,
-                            modifier = Modifier.weight(0.6f) //TODO change weight to something more flexible
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(MangaFlowIcons.PlusCircle),
-                                    contentDescription = null
-                                )
-
-                                Text(
-                                    text = "Library",
-                                    style = mTypography.titleMedium.copy(
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                )
-                            }
-                        }
-
-                        Button(
-                            onClick = {  },
-                            shape = mShapes.extraSmall,
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = mColors.primaryContainer,
-                                contentColor = mColors.onPrimaryContainer
-                            ),
-                            modifier = Modifier.weight(0.4f) //TODO change weight to something more flexible
-                        ) {
-                            Text(
-                                text = "Read",
-                                style = mTypography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold
-                                )
-                            )
-                        }
-                    }
                 }
+            }
+        }
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
+            Button(
+                onClick = {  },
+                shape = mShapes.extraSmall,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(MangaFlowIcons.PlusCircle),
+                        contentDescription = null
+                    )
+
+                    Text(
+                        text = "Add to library",
+                        style = mTypography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+            }
+
+            Button(
+                onClick = {  },
+                shape = mShapes.extraSmall,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = mColors.primaryContainer,
+                    contentColor = mColors.onPrimaryContainer
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Start reading",
+                    style = mTypography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                )
             }
         }
     }
