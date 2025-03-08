@@ -31,8 +31,6 @@ import com.example.mangaflow.core.design_system.theme.mTypography
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
 import dev.chrisbanes.haze.HazeTint
-import dev.chrisbanes.haze.haze
-import dev.chrisbanes.haze.hazeChild
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.hazeSource
 
@@ -41,7 +39,7 @@ fun LargeScreensHeader(
     coverImageUrl: String,
     titleEng: String,
     titleJap: String,
-    author: String,
+    authors: String,
     topPadding: Dp
 ) {
     val hazeState = remember { HazeState() }
@@ -138,7 +136,7 @@ fun LargeScreensHeader(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Text(
-                        text = author,
+                        text = authors,
                         style = mTypography.titleSmall
                     )
 

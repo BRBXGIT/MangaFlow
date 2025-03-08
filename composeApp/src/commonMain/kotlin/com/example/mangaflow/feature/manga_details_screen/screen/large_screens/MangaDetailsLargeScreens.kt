@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,11 +31,15 @@ fun MangaDetailsLargeScreens(
             val mangaTitleJap = manga.attributes.altTitles.filter {
                 it.ja is String
             }[0].ja
+            val authorsList = manga.relationships.filter {
+                it.type == "author"
+            }
+            val authors = authorsList.joinToString(", ") { it.attributes?.name.toString() }
             LargeScreensHeader(
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName",
                 titleEng = manga.attributes.title.en,
                 titleJap = mangaTitleJap.toString(),
-                author = "Kishimoto pidor",
+                authors = authors,
                 topPadding = innerPadding.calculateTopPadding()
             )
         }

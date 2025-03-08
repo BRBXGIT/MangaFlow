@@ -50,11 +50,17 @@ fun MangaDetailsScreenTopBar(
             ),
             scrollBehavior = scrollBehavior,
             title = {
-                Text(
-                    text = title,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                AnimatedVisibility(
+                    visible = scrollBehavior.state.contentOffset <= -600f,
+                    enter = fadeIn(tween(300)),
+                    exit = fadeOut(tween(300))
+                ) {
+                    Text(
+                        text = title,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             },
             navigationIcon = {
                 IconButton(

@@ -5,4 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class DescriptionX
+data class Biography(
+    @SerialName("en")
+    val en: String? = null
+)
