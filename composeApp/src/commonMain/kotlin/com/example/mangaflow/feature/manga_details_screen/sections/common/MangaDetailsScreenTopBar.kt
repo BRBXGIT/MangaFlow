@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.mangaflow.core.design_system.icons.MangaFlowIcons
 import org.jetbrains.compose.resources.painterResource
 
@@ -43,7 +44,13 @@ fun MangaDetailsScreenTopBar(
     Column {
         TopAppBar(
             scrollBehavior = scrollBehavior,
-            title = { Text(title) },
+            title = {
+                Text(
+                    text = title,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
             navigationIcon = {
                 IconButton(
                     onClick = { onNavIconClick() },
