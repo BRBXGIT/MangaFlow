@@ -15,6 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.common.NavRail
+import com.example.mangaflow.feature.manga_details_screen.screen.compact_screens.MangaDetailsCompactScreens
 import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.MangaDetailsLargeScreens
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
 
@@ -60,6 +61,11 @@ fun MangaDetailsScreen(
         ) { innerPadding ->
             if(showNavRail) {
                 MangaDetailsLargeScreens(
+                    innerPadding = innerPadding,
+                    manga = manga
+                )
+            } else {
+                MangaDetailsCompactScreens(
                     innerPadding = innerPadding,
                     manga = manga
                 )

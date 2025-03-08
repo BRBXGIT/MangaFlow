@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.manga_details_screen.screen.large_screens
+package com.example.mangaflow.feature.manga_details_screen.screen.compact_screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,11 +8,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mangaflow.feature.manga_details_screen.sections.large_screens.LargeScreensHeader
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensHeader
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
 @Composable
-fun MangaDetailsLargeScreens(
+fun MangaDetailsCompactScreens(
     innerPadding: PaddingValues,
     manga: MangaDetailsData
 ) {
@@ -29,11 +29,10 @@ fun MangaDetailsLargeScreens(
             val mangaTitleJap = manga.attributes.altTitles.filter {
                 it.ja is String
             }[0].ja
-            val authorsList = manga.relationships.filter {
+            val authors = manga.relationships.filter {
                 it.type == "author"
-            }
-            val authors = authorsList.joinToString(", ") { it.attributes?.name.toString() }
-            LargeScreensHeader(
+            }.joinToString(", ") { it.attributes?.name.toString() }
+            CompactScreensHeader(
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName",
                 titleEng = manga.attributes.title.en,
                 titleJap = mangaTitleJap.toString(),
