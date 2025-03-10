@@ -1,6 +1,8 @@
 package com.example.mangaflow.core.design_system.icons
 
 import mangaflow.composeapp.generated.resources.Res
+import mangaflow.composeapp.generated.resources.ic_arrow_up
+import mangaflow.composeapp.generated.resources.ic_book
 import mangaflow.composeapp.generated.resources.ic_bookmark
 import mangaflow.composeapp.generated.resources.ic_bookmark_filled
 import mangaflow.composeapp.generated.resources.ic_home
@@ -23,4 +25,6 @@ object MangaFlowIcons {
     val BookmarkFilled = Res.drawable.ic_bookmark_filled
     val NavigationArrowLeftFilled = Res.drawable.ic_navigation_arrow_left_filled
     val PlusCircle = Res.drawable.ic_plus_circle
+    val Book = Res.drawable.ic_book
+    val ArrowUpFilled = Res.drawable.ic_arrow_up
 }

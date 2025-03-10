@@ -150,22 +150,12 @@ fun LargeScreensHeader(
                             onClick = {  },
                             shape = mShapes.extraSmall
                         ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(MangaFlowIcons.PlusCircle),
-                                    contentDescription = null
+                            Text(
+                                text = "Add to library",
+                                style = mTypography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold
                                 )
-
-                                Text(
-                                    text = "Add to library",
-                                    style = mTypography.titleMedium.copy(
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                )
-                            }
+                            )
                         }
 
                         Button(

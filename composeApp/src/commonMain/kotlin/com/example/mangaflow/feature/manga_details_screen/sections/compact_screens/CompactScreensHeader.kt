@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -27,7 +26,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.cards.MangaFlowAsyncImage
-import com.example.mangaflow.core.design_system.icons.MangaFlowIcons
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
@@ -36,7 +34,6 @@ import dev.chrisbanes.haze.HazeStyle
 import dev.chrisbanes.haze.HazeTint
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.hazeSource
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun CompactScreensHeader(
@@ -163,22 +160,12 @@ fun CompactScreensHeader(
                 shape = mShapes.extraSmall,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(MangaFlowIcons.PlusCircle),
-                        contentDescription = null
+                Text(
+                    text = "Add to library",
+                    style = mTypography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold
                     )
-
-                    Text(
-                        text = "Add to library",
-                        style = mTypography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        )
-                    )
-                }
+                )
             }
 
             Button(
