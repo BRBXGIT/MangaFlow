@@ -27,7 +27,7 @@ data class AltTitle(
     @SerialName("id")
     val id: String? = null,
     @SerialName("it")
-    val `it`: String? = null,
+    val it: String? = null,
     @SerialName("ja")
     val ja: String? = null,
     @SerialName("ja-ro")

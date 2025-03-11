@@ -150,11 +150,10 @@ fun CompactScreensHeader(
         }
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-        ) {
+        ) { //TODO find where column takes arrangement spacedBy
             Button(
                 onClick = {  },
                 shape = mShapes.extraSmall,
@@ -162,27 +161,42 @@ fun CompactScreensHeader(
             ) {
                 Text(
                     text = "Add to library",
-                    style = mTypography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold
-                    )
+                    style = mTypography.bodyLarge
                 )
             }
 
-            Button(
-                onClick = {  },
-                shape = mShapes.extraSmall,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = mColors.primaryContainer,
-                    contentColor = mColors.onPrimaryContainer
-                ),
-                modifier = Modifier.fillMaxWidth()
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = "Start reading",
-                    style = mTypography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold
+                Button(
+                    onClick = {  },
+                    shape = mShapes.extraSmall,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = mColors.primaryContainer,
+                        contentColor = mColors.onPrimaryContainer
+                    ),
+                    modifier = Modifier.weight(0.5f)
+                ) {
+                    Text(
+                        text = "Add to MDList",
+                        style = mTypography.bodyLarge
                     )
-                )
+                }
+
+                Button(
+                    onClick = {  },
+                    shape = mShapes.extraSmall,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = mColors.primaryContainer,
+                        contentColor = mColors.onPrimaryContainer
+                    ),
+                    modifier = Modifier.weight(0.5f)
+                ) {
+                    Text(
+                        text = "Start reading",
+                        style = mTypography.bodyLarge
+                    )
+                }
             }
         }
     }

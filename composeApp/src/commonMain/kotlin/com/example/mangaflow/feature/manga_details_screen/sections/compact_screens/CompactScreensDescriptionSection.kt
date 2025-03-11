@@ -47,7 +47,7 @@ fun CompactScreensDescriptionSection(
         if(!expanded) {
             Text(
                 text = AnnotatedString.fromHtml(description),
-                style = mTypography.bodyMedium.copy(
+                style = mTypography.bodyLarge.copy(
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             mColors.onBackground,
@@ -61,7 +61,7 @@ fun CompactScreensDescriptionSection(
         } else {
             Text(
                 text = AnnotatedString.fromHtml(description),
-                style = mTypography.bodyMedium
+                style = mTypography.bodyLarge
             )
         }
 

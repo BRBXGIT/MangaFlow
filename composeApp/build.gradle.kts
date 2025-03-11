@@ -65,6 +65,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             //Haze materials
             implementation(libs.haze)
+            //For iterating over data classes
+            implementation(kotlin("reflect"))
         }
         desktopMain.dependencies {
             //Basic impl

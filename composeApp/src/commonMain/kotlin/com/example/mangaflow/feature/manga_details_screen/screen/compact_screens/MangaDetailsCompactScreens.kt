@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensAltTitlesSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensGenresLRSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensHeader
@@ -26,7 +27,7 @@ fun MangaDetailsCompactScreens(
     manga: MangaDetailsData
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = innerPadding.calculateBottomPadding())
@@ -59,7 +60,7 @@ fun MangaDetailsCompactScreens(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Genres",
+                    text = "Genres: ",
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
@@ -78,7 +79,7 @@ fun MangaDetailsCompactScreens(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Read or buy",
+                    text = "Read or buy: ",
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
@@ -92,12 +93,26 @@ fun MangaDetailsCompactScreens(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Track",
+                    text = "Track: ",
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
                 val trackLinks = convertTrackLinks(manga.attributes.links)
                 CompactScreensMangaLinksLRSection(trackLinks)
+            }
+        }
+
+        item {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                Text(
+                    text = "Alt titles: ",
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+
+                val mangaAltTitles = manga.attributes.altTitles
+                CompactScreensAltTitlesSection(mangaAltTitles)
             }
         }
 
