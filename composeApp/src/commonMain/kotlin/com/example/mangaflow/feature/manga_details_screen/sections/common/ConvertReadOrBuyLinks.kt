@@ -18,7 +18,7 @@ fun convertReadOrBuyLinks(
         readOrBuyConvertedLinks += MangaLink("Official English", links.engTl)
     }
     if(links.bw != "") {
-        readOrBuyConvertedLinks += MangaLink("Book☆Walker", "https://bookwalker.jp/${links.bw}")
+        readOrBuyConvertedLinks += MangaLink("Book Walker", "https://bookwalker.jp/${links.bw}")
     }
     if(links.amz != "") {
         readOrBuyConvertedLinks += MangaLink("Amazon", links.amz)

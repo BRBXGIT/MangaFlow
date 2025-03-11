@@ -31,7 +31,7 @@ fun CompactScreensGenresLRSection(
             Box(
                 modifier = Modifier
                     .background(
-                        color = mColors.primaryContainer,
+                        color = mColors.secondaryContainer,
                         shape = mShapes.extraSmall
                     )
                     .padding(4.dp)

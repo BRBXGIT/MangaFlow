@@ -84,7 +84,10 @@ fun MangaDetailsCompactScreens(
                 )
 
                 val readOrBuyLinks = convertReadOrBuyLinks(manga.attributes.links)
-                CompactScreensMangaLinksLRSection(readOrBuyLinks)
+                CompactScreensMangaLinksLRSection(
+                    links = readOrBuyLinks,
+                    onLinkClick = {  }
+                )
             }
         }
 
@@ -98,7 +101,10 @@ fun MangaDetailsCompactScreens(
                 )
 
                 val trackLinks = convertTrackLinks(manga.attributes.links)
-                CompactScreensMangaLinksLRSection(trackLinks)
+                CompactScreensMangaLinksLRSection(
+                    links = trackLinks,
+                    onLinkClick = {  }
+                )
             }
         }
 
