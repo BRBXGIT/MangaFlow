@@ -73,24 +73,27 @@ class MangaDetailsScreenVM(
     private val limit = 20
     private var offset = 0
 
-    fun fetchMangaChapters() {
+    fun fetchMangaChapters(
+        mangaId: String,
+        translatedLanguage: String
+    ) {
         viewModelScope.launch(dispatcherIo) {
             _mangaDetailsLoading.value = true
-            val response = repository.getMangaChapters()
+            val response = repository.getMangaChapters(mangaId, translatedLanguage, offset, limit)
             response.onError { error ->
                 SnackbarController.sendEvent(
                     SnackbarEvent(
                         message = processNetworkErrorsForUi(error),
                         action = SnackbarAction(
                             name = "Refresh",
-                            action = { fetchAllManga() }
+                            action = { fetchMangaChapters(mangaId, translatedLanguage) }
                         )
                     )
                 )
             }
             response.onSuccess { data ->
-                _allManga.value += data.data
-                _allMangaLoading.value = false
+                _mangaChapters.value += data.data
+                _mangaDetailsLoading.value = false
                 offset += limit
             }
         }
