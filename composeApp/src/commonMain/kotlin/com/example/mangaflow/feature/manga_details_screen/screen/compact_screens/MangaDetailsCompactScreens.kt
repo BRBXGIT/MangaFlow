@@ -1,25 +1,20 @@
 package com.example.mangaflow.feature.manga_details_screen.screen.compact_screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensAltTitlesSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensGenresLRSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensHeader
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaLinksLRSection
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
 @Composable
@@ -57,7 +52,6 @@ fun MangaDetailsCompactScreens(
         }
 
         item {
-            val mangaAltTitles = manga.attributes.altTitles
             val trackLinks = convertTrackLinks(manga.attributes.links)
             val readOrBuyLinks = convertReadOrBuyLinks(manga.attributes.links)
             val genreList = mutableListOf("")
@@ -66,12 +60,32 @@ fun MangaDetailsCompactScreens(
             }.forEach {
                 genreList += it.attributes.name.en
             }
+            val filteredAltTitles = manga.attributes.altTitles.flatMap { altTitle ->
+                listOfNotNull(
+                    "ar" to altTitle.ar,
+                    "en" to altTitle.en,
+                    "fa" to altTitle.fa,
+                    "he" to altTitle.he,
+                    "id" to altTitle.id,
+                    "ja" to altTitle.ja,
+                    "ja-ro" to altTitle.jaRo,
+                    "ka" to altTitle.ka,
+                    "ko" to altTitle.ko,
+                    "ko-ro" to altTitle.koRo,
+                    "pt-br" to altTitle.ptBr,
+                    "ru" to altTitle.ru,
+                    "tr" to altTitle.tr,
+                    "uk" to altTitle.uk,
+                    "zh" to altTitle.zh,
+                    "zh-hk" to altTitle.zhHk
+                ).filter { it.second != null }
+            }
 
             CompactScreensMangaAdditionalInfoSection(
-                genres = genreList.drop(1),
+                genres = genreList.drop(1), //Don't know why but first genre always is empty string, that's why i simply drop it
                 readOrBuyLinks = readOrBuyLinks,
                 trackLinks = trackLinks,
-                altTitles = mangaAltTitles,
+                altTitles = filteredAltTitles,
                 onLinkClick = {  }
             )
         }

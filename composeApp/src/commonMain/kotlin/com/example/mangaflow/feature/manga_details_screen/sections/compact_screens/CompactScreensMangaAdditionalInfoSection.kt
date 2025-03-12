@@ -1,6 +1,9 @@
 package com.example.mangaflow.feature.manga_details_screen.sections.compact_screens
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mangaflow.core.data.network.models.manga_details_response.AltTitle as MangaDetailsResponseAltTitle
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
@@ -28,25 +30,27 @@ fun CompactScreensMangaAdditionalInfoSection(
     genres: List<String>,
     readOrBuyLinks: List<MangaLink>,
     trackLinks: List<MangaLink>,
-    altTitles: List<MangaDetailsResponseAltTitle>,
+    altTitles: List<Pair<String, String?>>,
     onLinkClick: (String) -> Unit
 ) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val animatedVerticalPadding by animateDpAsState(
+        targetValue = if(expanded) 16.dp else 0.dp,
+        animationSpec = tween(300)
+    )
+
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 16.dp
-            )
+            .padding(horizontal = 16.dp)
             .background(
                 color = mColors.surfaceContainerHigh,
                 shape = mShapes.small
             )
-            .animateContentSize()
+            .padding(vertical = animatedVerticalPadding)
+            .animateContentSize(animationSpec = tween(300))
     ) {
-        var expanded by rememberSaveable { mutableStateOf(false) }
-
         if(!expanded) {
             TextButton(
                 onClick = { expanded = !expanded },
@@ -110,39 +114,19 @@ fun CompactScreensMangaAdditionalInfoSection(
             }
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     text = "Alt titles: ",
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
-                val filteredAltTitles = altTitles.flatMap { altTitle ->
-                    listOfNotNull(
-                        "ar" to altTitle.ar,
-                        "en" to altTitle.en,
-                        "fa" to altTitle.fa,
-                        "he" to altTitle.he,
-                        "id" to altTitle.id,
-                        "ja" to altTitle.ja,
-                        "ja-ro" to altTitle.jaRo,
-                        "ka" to altTitle.ka,
-                        "ko" to altTitle.ko,
-                        "ko-ro" to altTitle.koRo,
-                        "pt-br" to altTitle.ptBr,
-                        "ru" to altTitle.ru,
-                        "tr" to altTitle.tr,
-                        "uk" to altTitle.uk,
-                        "zh" to altTitle.zh,
-                        "zh-hk" to altTitle.zhHk
-                    ).filter { it.second != null }
-                }
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                 ) {
-                    filteredAltTitles.forEach { altTitle ->
+                    altTitles.forEach { altTitle ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
