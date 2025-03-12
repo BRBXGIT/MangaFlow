@@ -3,7 +3,7 @@ package com.example.mangaflow.feature.manga_details_screen.screen.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
-import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
+import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersData
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
 class MangaDetailsScreenVM(
     private val repository: MangaDetailsScreenRepo,
@@ -51,6 +52,46 @@ class MangaDetailsScreenVM(
             response.onSuccess { data ->
                 _mangaDetails.value = data.data
                 _mangaDetailsLoading.value = false
+            }
+        }
+    }
+
+
+    private val _mangaChapters = MutableStateFlow<List<MangaChaptersData>>(emptyList())
+    val mangaChapters = _mangaChapters.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        emptyList()
+    )
+    private val _mangaChaptersLoading = MutableStateFlow(true)
+    val mangaChaptersLoading = _mangaChaptersLoading.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        true
+    )
+
+    private val limit = 20
+    private var offset = 0
+
+    fun fetchMangaChapters() {
+        viewModelScope.launch(dispatcherIo) {
+            _mangaDetailsLoading.value = true
+            val response = repository.getMangaChapters()
+            response.onError { error ->
+                SnackbarController.sendEvent(
+                    SnackbarEvent(
+                        message = processNetworkErrorsForUi(error),
+                        action = SnackbarAction(
+                            name = "Refresh",
+                            action = { fetchAllManga() }
+                        )
+                    )
+                )
+            }
+            response.onSuccess { data ->
+                _allManga.value += data.data
+                _allMangaLoading.value = false
+                offset += limit
             }
         }
     }

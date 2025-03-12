@@ -18,7 +18,7 @@ import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
 
 @Composable
-fun CompactScreensGenresLRSection(
+fun CompactScreensMangaGenresLRSection(
     genres: List<String>
 ) {
     LazyRow(

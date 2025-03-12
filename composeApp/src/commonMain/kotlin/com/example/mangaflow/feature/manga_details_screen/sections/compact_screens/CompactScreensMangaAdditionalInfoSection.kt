@@ -1,9 +1,11 @@
 package com.example.mangaflow.feature.manga_details_screen.sections.compact_screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,7 +42,7 @@ fun CompactScreensMangaAdditionalInfoSection(
     )
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(0.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
@@ -51,96 +53,93 @@ fun CompactScreensMangaAdditionalInfoSection(
             .padding(vertical = animatedVerticalPadding)
             .animateContentSize(animationSpec = tween(300))
     ) {
-        if(!expanded) {
-            TextButton(
-                onClick = { expanded = !expanded },
-                shape = mShapes.small,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(
-                    text = "Show additional info",
-                    style = mTypography.bodyLarge
-                )
-            }
-        } else {
-            TextButton(
-                onClick = { expanded = !expanded },
-                shape = mShapes.small,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(
-                    text = "Hide additional info",
-                    style = mTypography.bodyLarge
-                )
-            }
+        TextButton(
+            onClick = { expanded = !expanded },
+            shape = mShapes.small,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = if(expanded)"Hide additional info" else "Show additional info",
+                style = mTypography.bodyLarge
+            )
+        }
 
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(tween(300)),
+            exit = fadeOut(tween(0))
+        ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                Text(
-                    text = "Genres: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = "Genres: ",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
 
-                CompactScreensGenresLRSection(genres)
-            }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Read or Buy: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                CompactScreensMangaLinksLRSection(
-                    links = readOrBuyLinks,
-                    onLinkClick = { onLinkClick(it) }
-                )
-            }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Track: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                CompactScreensMangaLinksLRSection(
-                    links = trackLinks,
-                    onLinkClick = { onLinkClick(it) }
-                )
-            }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                Text(
-                    text = "Alt titles: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                    CompactScreensMangaGenresLRSection(genres)
+                }
 
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    altTitles.forEach { altTitle ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = altTitle.first.uppercase(),
-                                style = mTypography.bodyLarge
-                            )
+                    Text(
+                        text = "Read or Buy: ",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
 
-                            Text(
-                                text = altTitle.second.toString(),
-                                style = mTypography.bodyLarge
-                            )
+                    CompactScreensMangaLinksLRSection(
+                        links = readOrBuyLinks,
+                        onLinkClick = { onLinkClick(it) }
+                    )
+                }
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = "Track: ",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+
+                    CompactScreensMangaLinksLRSection(
+                        links = trackLinks,
+                        onLinkClick = { onLinkClick(it) }
+                    )
+                }
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Text(
+                        text = "Alt titles: ",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        altTitles.forEach { altTitle ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = altTitle.first.uppercase(),
+                                    style = mTypography.bodyLarge
+                                )
+
+                                Text(
+                                    text = altTitle.second.toString(),
+                                    style = mTypography.bodyLarge
+                                )
+                            }
                         }
                     }
                 }
