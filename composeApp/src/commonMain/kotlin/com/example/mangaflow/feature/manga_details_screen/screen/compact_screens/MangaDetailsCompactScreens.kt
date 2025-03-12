@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensAltTitlesSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensGenresLRSection
@@ -56,70 +57,23 @@ fun MangaDetailsCompactScreens(
         }
 
         item {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Genres: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                val genreList = mutableListOf("")
-                manga.attributes.tags.filter {
-                    it.attributes.group == "genre"
-                }.forEach {
-                    genreList += it.attributes.name.en
-                }
-                CompactScreensGenresLRSection(genreList.drop(1)) //Don't know why but first item of list is always empty string
+            val mangaAltTitles = manga.attributes.altTitles
+            val trackLinks = convertTrackLinks(manga.attributes.links)
+            val readOrBuyLinks = convertReadOrBuyLinks(manga.attributes.links)
+            val genreList = mutableListOf("")
+            manga.attributes.tags.filter {
+                it.attributes.group == "genre"
+            }.forEach {
+                genreList += it.attributes.name.en
             }
-        }
 
-        item {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Read or buy: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                val readOrBuyLinks = convertReadOrBuyLinks(manga.attributes.links)
-                CompactScreensMangaLinksLRSection(
-                    links = readOrBuyLinks,
-                    onLinkClick = {  }
-                )
-            }
-        }
-
-        item {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Track: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                val trackLinks = convertTrackLinks(manga.attributes.links)
-                CompactScreensMangaLinksLRSection(
-                    links = trackLinks,
-                    onLinkClick = {  }
-                )
-            }
-        }
-
-        item {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                Text(
-                    text = "Alt titles: ",
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                val mangaAltTitles = manga.attributes.altTitles
-                CompactScreensAltTitlesSection(mangaAltTitles)
-            }
+            CompactScreensMangaAdditionalInfoSection(
+                genres = genreList.drop(1),
+                readOrBuyLinks = readOrBuyLinks,
+                trackLinks = trackLinks,
+                altTitles = mangaAltTitles,
+                onLinkClick = {  }
+            )
         }
 
         item {
