@@ -3,7 +3,7 @@ package com.example.mangaflow.feature.manga_details_screen.screen.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
-import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersData
+import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
@@ -15,13 +15,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
+import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsResponseData
 
 class MangaDetailsScreenVM(
     private val repository: MangaDetailsScreenRepo,
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
-    private val _mangaDetails = MutableStateFlow<MangaDetailsData?>(null)
+    private val _mangaDetails = MutableStateFlow<MangaDetailsResponseData?>(null)
     val mangaDetails = _mangaDetails.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -57,7 +57,7 @@ class MangaDetailsScreenVM(
     }
 
 
-    private val _mangaChapters = MutableStateFlow<List<MangaChaptersData>>(emptyList())
+    private val _mangaChapters = MutableStateFlow<List<MangaChaptersResponseData>>(emptyList())
     val mangaChapters = _mangaChapters.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -69,31 +69,39 @@ class MangaDetailsScreenVM(
         SharingStarted.WhileSubscribed(5_000),
         true
     )
+    private val _mangaChaptersLanguage = MutableStateFlow<String?>(null)
+    val mangaChaptersLanguage = _mangaChaptersLanguage.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        null
+    )
+
+    fun setMangaChaptersLanguage(language: String) {
+        _mangaChapters.value = emptyList()
+        _mangaChaptersLanguage.value = language
+    }
 
     private val limit = 20
     private var offset = 0
 
-    fun fetchMangaChapters(
-        mangaId: String,
-        translatedLanguage: String
-    ) {
+    fun fetchMangaChapters(mangaId: String) {
         viewModelScope.launch(dispatcherIo) {
-            _mangaDetailsLoading.value = true
-            val response = repository.getMangaChapters(mangaId, translatedLanguage, offset, limit)
+            _mangaChaptersLoading.value = true
+            val response = repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit)
             response.onError { error ->
                 SnackbarController.sendEvent(
                     SnackbarEvent(
                         message = processNetworkErrorsForUi(error),
                         action = SnackbarAction(
                             name = "Refresh",
-                            action = { fetchMangaChapters(mangaId, translatedLanguage) }
+                            action = { fetchMangaChapters(mangaId) }
                         )
                     )
                 )
             }
             response.onSuccess { data ->
                 _mangaChapters.value += data.data
-                _mangaDetailsLoading.value = false
+                _mangaChaptersLoading.value = false
                 offset += limit
             }
         }

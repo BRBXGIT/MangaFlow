@@ -58,7 +58,8 @@ fun MangaDetailsScreenTopBar(
                     Text(
                         text = title,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = if(title == "No title provided :0") mColors.error else mColors.onBackground
                     )
                 }
             },

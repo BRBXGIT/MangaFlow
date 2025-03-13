@@ -1,29 +1,58 @@
 package com.example.mangaflow.feature.manga_details_screen.screen.compact_screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.mangaflow.core.design_system.theme.mShapes
+import com.example.mangaflow.core.design_system.theme.mTypography
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensHeader
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChapterItem
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChaptersLoadingSection
+import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
 @Composable
 fun MangaDetailsCompactScreens(
     innerPadding: PaddingValues,
-    manga: MangaDetailsData
+    manga: MangaDetailsData,
+    onMangaChaptersListEnd: () -> Unit,
+    onGetMangaButtonClick: () -> Unit,
+    mangaChaptersLoadingState: Boolean,
+    mangaChaptersLanguage: String?,
+    mangaChapters: List<MangaChaptersResponseData>
 ) {
+    val state = rememberLazyListState()
+    LaunchedEffect(state) {
+        snapshotFlow { state.canScrollForward }
+            .collect { canScrollForward ->
+                if(!canScrollForward) {
+                    onMangaChaptersListEnd()
+                }
+            }
+    }
+
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        state = state,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = innerPadding.calculateBottomPadding())
@@ -40,7 +69,7 @@ fun MangaDetailsCompactScreens(
             }.joinToString(", ") { it.attributes?.name.toString() }
             CompactScreensHeader(
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverArtFileName",
-                titleEng = manga.attributes.title.en,
+                titleEng = if(manga.attributes.title.en == "") "No title provided :0" else manga.attributes.title.en,
                 titleJap = mangaTitleJap.toString(),
                 authors = authors,
                 topPadding = innerPadding.calculateTopPadding()
@@ -81,13 +110,48 @@ fun MangaDetailsCompactScreens(
                 ).filter { it.second != null }
             }
 
-            CompactScreensMangaAdditionalInfoSection(
-                genres = genreList.drop(1), //Don't know why but first genre always is empty string, that's why i simply drop it
-                readOrBuyLinks = readOrBuyLinks,
-                trackLinks = trackLinks,
-                altTitles = filteredAltTitles,
-                onLinkClick = {  }
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                CompactScreensMangaAdditionalInfoSection(
+                    genres = genreList.drop(1), //Don't know why but first genre always is empty string, that's why i simply drop it
+                    readOrBuyLinks = readOrBuyLinks,
+                    trackLinks = trackLinks,
+                    altTitles = filteredAltTitles,
+                    onLinkClick = {  }
+                )
+
+                Button(
+                    shape = mShapes.extraSmall,
+                    onClick = {
+                        onGetMangaButtonClick()
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    Text(
+                        text = "Get manga chapters",
+                        style = mTypography.bodyLarge
+                    )
+                }
+            }
+        }
+
+        if(mangaChaptersLanguage != null) {
+            items(mangaChapters) { chapter ->
+                MangaChapterItem(
+                    volume = chapter.attributes.volume,
+                    chapter = chapter.attributes.chapter,
+                    title = if(chapter.attributes.title != "") chapter.attributes.title else "No title provided :0"
+                )
+            }
+        }
+
+        if((mangaChaptersLanguage != null) and (mangaChaptersLoadingState)) {
+            item {
+                MangaChaptersLoadingSection()
+            }
         }
 
         item {

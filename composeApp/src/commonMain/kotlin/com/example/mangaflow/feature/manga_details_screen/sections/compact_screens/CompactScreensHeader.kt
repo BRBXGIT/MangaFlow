@@ -127,7 +127,8 @@ fun CompactScreensHeader(
                         Text(
                             text = titleEng,
                             style = mTypography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = if(titleEng == "No title provided :0") mColors.error else mColors.onBackground
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

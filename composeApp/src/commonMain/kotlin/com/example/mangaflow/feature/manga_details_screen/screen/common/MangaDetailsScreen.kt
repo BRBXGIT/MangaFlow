@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -41,7 +42,7 @@ fun MangaDetailsScreen(
         Scaffold(
             topBar = {
                 MangaDetailsScreenTopBar(
-                    mangaTitle = manga.attributes.title.en,
+                    mangaTitle = if(manga.attributes.title.en != "") manga.attributes.title.en else "No title provided :0",
                     mangaLoadingState = mangaLoadingState,
                     scrollBehavior = topBarScrollBehavior,
                     onNavIconClick = { navController.navigateUp() }
@@ -59,6 +60,10 @@ fun MangaDetailsScreen(
                 )
                 .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
         ) { innerPadding ->
+            val mangaChaptersLanguage = viewModel.mangaChaptersLanguage.collectAsStateWithLifecycle().value
+            val mangaChaptersLoadingState = viewModel.mangaChaptersLoading.collectAsState().value
+            val mangaChapters = viewModel.mangaChapters.collectAsStateWithLifecycle().value
+
             if(showNavRail) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
@@ -67,7 +72,19 @@ fun MangaDetailsScreen(
             } else {
                 MangaDetailsCompactScreens(
                     innerPadding = innerPadding,
-                    manga = manga
+                    manga = manga,
+                    mangaChaptersLoadingState = mangaChaptersLoadingState,
+                    mangaChaptersLanguage = mangaChaptersLanguage,
+                    mangaChapters = mangaChapters,
+                    onMangaChaptersListEnd = {
+                        if(mangaChaptersLanguage != null) {
+                            viewModel.fetchMangaChapters(mangaId)
+                        }
+                    },
+                    onGetMangaButtonClick = {
+                        viewModel.setMangaChaptersLanguage("en")
+                        viewModel.fetchMangaChapters(mangaId)
+                    }
                 )
             }
         }

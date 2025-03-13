@@ -46,7 +46,7 @@ fun AllMangaLVGSection(
             MangaCard(
                 index = index,
                 coverImageUrl = "https://uploads.mangadex.org/covers/${manga.id}/$mangaCoverFilename.256.jpg",
-                title = manga.attributes.title.en,
+                title = if(manga.attributes.title.en != "") manga.attributes.title.en else "No title provided :0",
                 genres = mangaGenres,
                 onCardClick = {
                     onMangaCardClick(manga.id)

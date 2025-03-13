@@ -71,7 +71,8 @@ fun MangaCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = mTypography.titleSmall.copy(
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = if(title == "No title provided :0") mColors.error else mColors.onSecondaryContainer
                     )
                 )
 
