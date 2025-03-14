@@ -35,7 +35,7 @@ fun MangaDetailsCompactScreens(
     innerPadding: PaddingValues,
     manga: MangaDetailsData,
     onMangaChaptersListEnd: () -> Unit,
-    onGetMangaButtonClick: () -> Unit,
+    onSetTranslationLanguageClick: () -> Unit,
     mangaChaptersLoadingState: Boolean,
     mangaChaptersLanguage: String?,
     mangaChapters: List<MangaChaptersResponseData>
@@ -124,14 +124,14 @@ fun MangaDetailsCompactScreens(
                 Button(
                     shape = mShapes.extraSmall,
                     onClick = {
-                        onGetMangaButtonClick()
+                        onSetTranslationLanguageClick()
                     },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
                 ) {
                     Text(
-                        text = "Get manga chapters",
+                        text = "Set translation language",
                         style = mTypography.bodyLarge
                     )
                 }

@@ -20,7 +20,9 @@ class MangaDetailsScreenKtorClient(
         val response = try {
             httpClient.get(urlString = "${Utils.BASE_URL}/manga/$id?" +
                     "includes[]=cover_art&" +
-                    "includes[]=author")
+                    "includes[]=author&" +
+                    "includes[]=translatedLanguage"
+            )
         } catch(e: kotlinx.io.IOException) { //Use IOException cause UnresolvedAddressException doesn't work
             return Result.Error(NetworkError.NO_INTERNET)
         } catch(e: ServerCloneException) {

@@ -8,8 +8,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -20,6 +22,7 @@ import com.example.mangaflow.feature.common.NavRail
 import com.example.mangaflow.feature.manga_details_screen.screen.compact_screens.MangaDetailsCompactScreens
 import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.MangaDetailsLargeScreens
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateLanguageBS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,6 +68,7 @@ fun MangaDetailsScreen(
             val mangaChaptersLoadingState by viewModel.mangaChaptersLoading.collectAsStateWithLifecycle()
             val mangaChapters by viewModel.mangaChapters.collectAsStateWithLifecycle()
 
+            var translationLanguagesBSOpen by rememberSaveable { mutableStateOf(false) }
             if(showNavRail) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
@@ -82,11 +86,22 @@ fun MangaDetailsScreen(
                             viewModel.fetchMangaChapters(mangaId)
                         }
                     },
-                    onGetMangaButtonClick = {
-                        viewModel.setMangaChaptersLanguage("en")
-                        viewModel.fetchMangaChapters(mangaId)
+                    onSetTranslationLanguageClick = {
+                        translationLanguagesBSOpen = true
                     }
                 )
+
+                if(translationLanguagesBSOpen) {
+                    MangaTranslateLanguageBS(
+                        onDismissRequest = { translationLanguagesBSOpen = false },
+                        availableLanguages = manga.attributes.availableTranslatedLanguages,
+                        onGetMangaClick = {
+                            translationLanguagesBSOpen = false
+                            viewModel.setMangaChaptersLanguage(it)
+                            viewModel.fetchMangaChapters(manga.id)
+                        }
+                    )
+                }
             }
         }
     }
