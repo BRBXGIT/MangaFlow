@@ -44,7 +44,7 @@ fun MangaTranslateLanguageBS(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp, 16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             items(availableLanguages) { language ->
                 LanguageItem(
