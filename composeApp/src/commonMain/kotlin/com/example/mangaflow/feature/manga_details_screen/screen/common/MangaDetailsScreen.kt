@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -60,9 +61,9 @@ fun MangaDetailsScreen(
                 )
                 .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
         ) { innerPadding ->
-            val mangaChaptersLanguage = viewModel.mangaChaptersLanguage.collectAsStateWithLifecycle().value
-            val mangaChaptersLoadingState = viewModel.mangaChaptersLoading.collectAsState().value
-            val mangaChapters = viewModel.mangaChapters.collectAsStateWithLifecycle().value
+            val mangaChaptersLanguage by viewModel.mangaChaptersLanguage.collectAsStateWithLifecycle()
+            val mangaChaptersLoadingState by viewModel.mangaChaptersLoading.collectAsStateWithLifecycle()
+            val mangaChapters by viewModel.mangaChapters.collectAsStateWithLifecycle()
 
             if(showNavRail) {
                 MangaDetailsLargeScreens(
