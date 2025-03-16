@@ -49,7 +49,8 @@ class MangaDetailsScreenKtorClient(
                         "translatedLanguage[]=$translatedLanguage&" +
                         "offset=$offset&" +
                         "limit=$limit&" +
-                        "order[chapter]=asc"
+                        "order[chapter]=asc&" +
+                        "includes[]=scanlation_group"
             )
         } catch(e: kotlinx.io.IOException) { //Use IOException cause UnresolvedAddressException doesn't work
             return Result.Error(NetworkError.NO_INTERNET)

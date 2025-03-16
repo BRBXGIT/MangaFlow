@@ -33,7 +33,6 @@ import com.example.mangaflow.feature.manga_details_screen.sections.compact_scree
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChapterItem
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChaptersLoadingSection
-import kotlin.math.exp
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 

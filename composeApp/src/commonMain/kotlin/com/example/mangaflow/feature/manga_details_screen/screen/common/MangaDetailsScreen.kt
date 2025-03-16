@@ -97,9 +97,10 @@ fun MangaDetailsScreen(
                         availableLanguages = manga.attributes.availableTranslatedLanguages,
                         onGetMangaClick = {
                             translationLanguagesBSOpen = false
-                            viewModel.setMangaChaptersLanguage(it)
                             viewModel.fetchMangaChapters(manga.id)
-                        }
+                        },
+                        selectedLanguage = mangaChaptersLanguage,
+                        onSetLanguageClick = { viewModel.setMangaChaptersLanguage(it) }
                     )
                 }
             }

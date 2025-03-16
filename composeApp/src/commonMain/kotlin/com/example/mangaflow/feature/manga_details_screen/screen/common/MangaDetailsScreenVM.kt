@@ -76,13 +76,14 @@ class MangaDetailsScreenVM(
         null
     )
 
-    fun setMangaChaptersLanguage(language: String) {
-        _mangaChapters.value = emptyList()
-        _mangaChaptersLanguage.value = language
-    }
-
     private val limit = 20
     private var offset = 0
+
+    fun setMangaChaptersLanguage(language: String) {
+        _mangaChapters.value = emptyList()
+        offset = 0
+        _mangaChaptersLanguage.value = language
+    }
 
     fun fetchMangaChapters(mangaId: String) {
         viewModelScope.launch(dispatcherIo) {

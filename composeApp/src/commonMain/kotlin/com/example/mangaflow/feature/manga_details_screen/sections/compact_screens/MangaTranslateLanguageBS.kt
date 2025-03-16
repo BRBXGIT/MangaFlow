@@ -41,9 +41,11 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MangaTranslateLanguageBS(
-    onGetMangaClick: (String) -> Unit,
+    onGetMangaClick: () -> Unit,
+    onSetLanguageClick: (String) -> Unit,
     onDismissRequest: () -> Unit,
-    availableLanguages: List<String>
+    availableLanguages: List<String>,
+    selectedLanguage: String?
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -77,7 +79,6 @@ fun MangaTranslateLanguageBS(
             }
         }
 
-        var selectedLanguage by rememberSaveable { mutableStateOf<String?>(null) }
         LazyColumn(
             contentPadding = PaddingValues(vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -88,7 +89,7 @@ fun MangaTranslateLanguageBS(
             items(availableLanguages) { language ->
                 LanguageItem(
                     selectedLanguage = selectedLanguage,
-                    onRadioClick = { selectedLanguage = language },
+                    onRadioClick = { onSetLanguageClick(language) },
                     language = language
                 )
             }
@@ -106,7 +107,7 @@ fun MangaTranslateLanguageBS(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         if(selectedLanguage != null) {
-                            onGetMangaClick(selectedLanguage!!)
+                            onGetMangaClick()
                         } else {
                             languageNotSelectedError = true
                         }

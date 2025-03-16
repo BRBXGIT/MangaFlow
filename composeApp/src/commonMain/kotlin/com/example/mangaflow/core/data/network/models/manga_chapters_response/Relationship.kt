@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Relationship(
+    @SerialName("attributes")
+    val attributes: AttributesX? = AttributesX(),
     @SerialName("id")
     val id: String = "",
     @SerialName("type")
