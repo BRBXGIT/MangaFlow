@@ -1,5 +1,11 @@
 package com.example.mangaflow.feature.manga_details_screen.screen.compact_screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +33,7 @@ import com.example.mangaflow.feature.manga_details_screen.sections.compact_scree
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChapterItem
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChaptersLoadingSection
+import kotlin.math.exp
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
@@ -134,6 +141,27 @@ fun MangaDetailsCompactScreens(
                         text = "Set translation language",
                         style = mTypography.bodyLarge
                     )
+                }
+
+                AnimatedVisibility(
+                    visible = mangaChaptersLanguage != null,
+                    enter = fadeIn(tween(300)) + expandVertically(tween(300)),
+                    exit = fadeOut(tween(300)) + shrinkVertically(tween(300))
+                ) {
+                    Button(
+                        shape = mShapes.extraSmall,
+                        onClick = {
+
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            text = "Set translation group",
+                            style = mTypography.bodyLarge
+                        )
+                    }
                 }
             }
         }
