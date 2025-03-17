@@ -13,6 +13,7 @@ interface MangaDetailsScreenRepo {
         mangaId: String,
         translatedLanguage: String,
         offset: Int = 0,
-        limit: Int = 20
+        limit: Int = 20,
+        scanlationGroupId: String? = null
     ): Result<MangaChaptersResponse, NetworkError>
 }

@@ -22,6 +22,7 @@ import com.example.mangaflow.feature.common.NavRail
 import com.example.mangaflow.feature.manga_details_screen.screen.compact_screens.MangaDetailsCompactScreens
 import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.MangaDetailsLargeScreens
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateGroupBS
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateLanguageBS
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,8 +68,10 @@ fun MangaDetailsScreen(
             val mangaChaptersLanguage by viewModel.mangaChaptersLanguage.collectAsStateWithLifecycle()
             val mangaChaptersLoadingState by viewModel.mangaChaptersLoading.collectAsStateWithLifecycle()
             val mangaChapters by viewModel.mangaChapters.collectAsStateWithLifecycle()
+            val mangaChaptersTranslationGroup by viewModel.mangaChaptersScanlationGroup.collectAsStateWithLifecycle()
 
             var translationLanguagesBSOpen by rememberSaveable { mutableStateOf(false) }
+            var translationGroupBSOpen by rememberSaveable { mutableStateOf(false) }
             if(showNavRail) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
@@ -88,6 +91,9 @@ fun MangaDetailsScreen(
                     },
                     onSetTranslationLanguageClick = {
                         translationLanguagesBSOpen = true
+                    },
+                    onSetTranslationGroupClick = {
+                        translationGroupBSOpen = true
                     }
                 )
 
@@ -101,6 +107,30 @@ fun MangaDetailsScreen(
                         },
                         selectedLanguage = mangaChaptersLanguage,
                         onSetLanguageClick = { viewModel.setMangaChaptersLanguage(it) }
+                    )
+                }
+
+                if(translationGroupBSOpen) {
+                    val availableTranslationGroupsFiltered = mutableSetOf<TranslateGroup>()
+                    mangaChapters.forEach { chapter ->
+                        chapter.relationships.filter { relationShip ->
+                            relationShip.type == "scanlation_group"
+                        }.forEach {
+                            availableTranslationGroupsFiltered += TranslateGroup(
+                                name = it.attributes?.name ?: "No name provided :(",
+                                id = it.id
+                            )
+                        }
+                    }
+                    MangaTranslateGroupBS(
+                        onGetMangaClick = {
+                            translationGroupBSOpen = false
+                            viewModel.fetchMangaChapters(manga.id)
+                        },
+                        onSetGroupClick = { viewModel.setMangaScanlationGroupId(it.name, it.id) },
+                        onDismissRequest = { translationGroupBSOpen = false },
+                        availableGroups = availableTranslationGroupsFiltered.toList(),
+                        selectedGroup = mangaChaptersTranslationGroup
                     )
                 }
             }

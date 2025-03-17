@@ -19,8 +19,9 @@ class MangaDetailsScreenRepoImpl(
         mangaId: String,
         translatedLanguage: String,
         offset: Int,
-        limit: Int
+        limit: Int,
+        scanlationGroupId: String?
     ): Result<MangaChaptersResponse, NetworkError> {
-        return ktorClient.getMangaChapters(mangaId, translatedLanguage, offset, limit)
+        return ktorClient.getMangaChapters(mangaId, translatedLanguage, offset, limit, scanlationGroupId)
     }
 }

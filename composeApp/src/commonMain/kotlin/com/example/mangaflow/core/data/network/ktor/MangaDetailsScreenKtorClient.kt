@@ -1,5 +1,6 @@
 package com.example.mangaflow.core.data.network.ktor
 
+import androidx.collection.intFloatMapOf
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.MangaChaptersResponse
 import com.example.mangaflow.core.data.network.models.manga_details_response.MangaDetailsResponse
 import com.example.mangaflow.core.data.network.utils.NetworkError
@@ -40,7 +41,8 @@ class MangaDetailsScreenKtorClient(
         mangaId: String,
         translatedLanguage: String,
         offset: Int,
-        limit: Int
+        limit: Int,
+        scanlationGroupId: String? = null
     ): Result<MangaChaptersResponse, NetworkError> {
         val response = try {
             httpClient.get(
@@ -50,7 +52,8 @@ class MangaDetailsScreenKtorClient(
                         "offset=$offset&" +
                         "limit=$limit&" +
                         "order[chapter]=asc&" +
-                        "includes[]=scanlation_group"
+                        "includes[]=scanlation_group&" +
+                        if(scanlationGroupId != null) "groups[]=$scanlationGroupId" else ""
             )
         } catch(e: kotlinx.io.IOException) { //Use IOException cause UnresolvedAddressException doesn't work
             return Result.Error(NetworkError.NO_INTERNET)

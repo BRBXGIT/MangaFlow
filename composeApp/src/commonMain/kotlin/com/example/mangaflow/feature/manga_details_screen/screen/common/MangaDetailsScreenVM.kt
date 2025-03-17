@@ -17,6 +17,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsResponseData
 
+data class TranslateGroup(
+    val name: String,
+    val id: String
+)
+
 class MangaDetailsScreenVM(
     private val repository: MangaDetailsScreenRepo,
     private val dispatcherIo: CoroutineDispatcher
@@ -75,6 +80,12 @@ class MangaDetailsScreenVM(
         SharingStarted.WhileSubscribed(5_000),
         null
     )
+    private val _mangaChaptersScanlationGroup = MutableStateFlow<TranslateGroup?>(null)
+    val mangaChaptersScanlationGroup = _mangaChaptersScanlationGroup.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        null
+    )
 
     private val limit = 20
     private var offset = 0
@@ -85,10 +96,23 @@ class MangaDetailsScreenVM(
         _mangaChaptersLanguage.value = language
     }
 
+    fun setMangaScanlationGroupId(
+        name: String,
+        id: String
+    ) {
+        _mangaChapters.value = emptyList()
+        offset = 0
+        _mangaChaptersScanlationGroup.value = TranslateGroup(name, id)
+    }
+
     fun fetchMangaChapters(mangaId: String) {
         viewModelScope.launch(dispatcherIo) {
             _mangaChaptersLoading.value = true
-            val response = repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit)
+            val response = if(_mangaChaptersScanlationGroup.value == null) {
+                repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit)
+            } else {
+                repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit, _mangaChaptersScanlationGroup.value!!.id)
+            }
             response.onError { error ->
                 SnackbarController.sendEvent(
                     SnackbarEvent(
