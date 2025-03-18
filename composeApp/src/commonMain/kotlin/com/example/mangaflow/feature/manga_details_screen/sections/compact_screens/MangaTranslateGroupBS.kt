@@ -91,7 +91,7 @@ private fun GroupItem(
     ) {
         Text(
             text = group.name,
-            style = mTypography.bodySmall
+            style = mTypography.bodyLarge
         )
 
         RadioButton(

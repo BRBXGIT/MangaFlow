@@ -67,7 +67,7 @@ private fun LanguageItem(
     ) {
         Text(
             text = language.uppercase(),
-            style = mTypography.bodySmall
+            style = mTypography.bodyLarge
         )
 
         RadioButton(

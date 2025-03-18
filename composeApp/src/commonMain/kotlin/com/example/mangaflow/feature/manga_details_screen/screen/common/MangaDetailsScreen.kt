@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -25,7 +24,6 @@ import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.M
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateGroupBS
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateLanguageBS
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
