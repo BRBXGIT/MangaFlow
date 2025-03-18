@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
+import com.example.mangaflow.feature.manga_details_screen.screen.common.TranslateGroup
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
@@ -45,7 +46,7 @@ fun MangaDetailsCompactScreens(
     onSetTranslationGroupClick: () -> Unit,
     mangaChaptersLoadingState: Boolean,
     mangaChaptersLanguage: String?,
-    mangaChapters: List<MangaChaptersResponseData>
+    mangaChapters: List<MangaChaptersResponseData>,
 ) {
     val state = rememberLazyListState()
     LaunchedEffect(state) {

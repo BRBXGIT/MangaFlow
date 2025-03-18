@@ -80,8 +80,14 @@ class MangaDetailsScreenVM(
         SharingStarted.WhileSubscribed(5_000),
         null
     )
-    private val _mangaChaptersScanlationGroup = MutableStateFlow<TranslateGroup?>(null)
-    val mangaChaptersScanlationGroup = _mangaChaptersScanlationGroup.stateIn(
+    private val _selectedMangaChaptersScanlationGroup = MutableStateFlow<TranslateGroup?>(null)
+    val selectedMangaChaptersScanlationGroup = _selectedMangaChaptersScanlationGroup.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        null
+    )
+    private val _availableMangaChaptersScanlationGroups = MutableStateFlow<List<TranslateGroup>?>(null)
+    val availableMangaChaptersScanlationGroups = _availableMangaChaptersScanlationGroups.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         null
@@ -92,6 +98,7 @@ class MangaDetailsScreenVM(
 
     fun setMangaChaptersLanguage(language: String) {
         _mangaChapters.value = emptyList()
+        _selectedMangaChaptersScanlationGroup.value = null
         offset = 0
         _mangaChaptersLanguage.value = language
     }
@@ -102,16 +109,34 @@ class MangaDetailsScreenVM(
     ) {
         _mangaChapters.value = emptyList()
         offset = 0
-        _mangaChaptersScanlationGroup.value = TranslateGroup(name, id)
+        _selectedMangaChaptersScanlationGroup.value = TranslateGroup(name, id)
     }
 
-    fun fetchMangaChapters(mangaId: String) {
+    fun setMangaScanlationGroups() {
+        val availableTranslationGroupsFiltered = mutableSetOf<TranslateGroup>()
+        _mangaChapters.value.forEach { chapter ->
+            chapter.relationships.filter { relationShip ->
+                relationShip.type == "scanlation_group"
+            }.forEach {
+                availableTranslationGroupsFiltered += TranslateGroup(
+                    name = it.attributes?.name ?: "No name provided :(",
+                    id = it.id
+                )
+            }
+        }
+        _availableMangaChaptersScanlationGroups.value = availableTranslationGroupsFiltered.toList()
+    }
+
+    fun fetchMangaChapters(
+        mangaId: String,
+        onComplete: () -> Unit = {}
+    ) {
         viewModelScope.launch(dispatcherIo) {
             _mangaChaptersLoading.value = true
-            val response = if(_mangaChaptersScanlationGroup.value == null) {
+            val response = if(_selectedMangaChaptersScanlationGroup.value == null) {
                 repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit)
             } else {
-                repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit, _mangaChaptersScanlationGroup.value!!.id)
+                repository.getMangaChapters(mangaId, _mangaChaptersLanguage.value!!, offset, limit, _selectedMangaChaptersScanlationGroup.value!!.id)
             }
             response.onError { error ->
                 SnackbarController.sendEvent(
@@ -128,6 +153,7 @@ class MangaDetailsScreenVM(
                 _mangaChapters.value += data.data
                 _mangaChaptersLoading.value = false
                 offset += limit
+                onComplete()
             }
         }
     }
