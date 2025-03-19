@@ -76,7 +76,15 @@ fun MangaDetailsScreen(
             if(showNavRail) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
-                    manga = manga
+                    manga = manga,
+                    onMangaChaptersListEnd = {
+                        if(mangaChaptersLanguage != null) {
+                            viewModel.fetchMangaChapters(mangaId)
+                        }
+                    },
+                    mangaChaptersLanguage = mangaChaptersLanguage,
+                    mangaChapters = mangaChapters,
+                    mangaChaptersLoadingState = mangaChaptersLoadingState
                 )
             } else {
                 MangaDetailsCompactScreens(

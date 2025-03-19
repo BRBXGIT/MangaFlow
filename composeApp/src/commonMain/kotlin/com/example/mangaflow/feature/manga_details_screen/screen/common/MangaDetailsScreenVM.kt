@@ -129,7 +129,7 @@ class MangaDetailsScreenVM(
 
     fun fetchMangaChapters(
         mangaId: String,
-        onComplete: () -> Unit = {}
+        onComplete: (() -> Unit)? = null
     ) {
         viewModelScope.launch(dispatcherIo) {
             _mangaChaptersLoading.value = true
@@ -153,7 +153,9 @@ class MangaDetailsScreenVM(
                 _mangaChapters.value += data.data
                 _mangaChaptersLoading.value = false
                 offset += limit
-                onComplete()
+                if(onComplete != null) {
+                    onComplete()
+                }
             }
         }
     }

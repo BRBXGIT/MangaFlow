@@ -26,14 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
-import com.example.mangaflow.feature.manga_details_screen.screen.common.TranslateGroup
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensHeader
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChapterItem
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaChaptersLoadingSection
+import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChapterItem
+import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChaptersLoadingSection
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 

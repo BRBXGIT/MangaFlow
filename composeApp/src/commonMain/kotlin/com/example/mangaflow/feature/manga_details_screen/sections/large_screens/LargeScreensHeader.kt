@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -43,6 +45,7 @@ fun LargeScreensHeader(
     titleEng: String,
     titleJap: String,
     authors: String,
+    genres: List<String>,
     topPadding: Dp
 ) {
     val hazeState = remember { HazeState() }
@@ -172,6 +175,42 @@ fun LargeScreensHeader(
                                     fontWeight = FontWeight.Bold
                                 )
                             )
+                        }
+
+                        Button(
+                            onClick = {  },
+                            shape = mShapes.extraSmall,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = mColors.primaryContainer,
+                                contentColor = mColors.onPrimaryContainer
+                            )
+                        ) {
+                            Text(
+                                text = "Add to MDList",
+                                style = mTypography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+                        }
+                    }
+
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        items(genres) { genre ->
+                            Box(
+                                modifier = Modifier
+                                    .background(
+                                        color = mColors.secondaryContainer,
+                                        shape = mShapes.extraSmall
+                                    )
+                                    .padding(4.dp)
+                            ) {
+                                Text(
+                                    text = genre,
+                                    style = mTypography.labelLarge
+                                )
+                            }
                         }
                     }
                 }

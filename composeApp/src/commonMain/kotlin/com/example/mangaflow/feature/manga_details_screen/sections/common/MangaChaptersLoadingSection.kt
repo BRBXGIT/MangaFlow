@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.manga_details_screen.sections.compact_screens
+package com.example.mangaflow.feature.manga_details_screen.sections.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
