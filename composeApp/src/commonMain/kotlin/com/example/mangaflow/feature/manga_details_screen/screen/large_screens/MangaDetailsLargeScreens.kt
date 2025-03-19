@@ -51,7 +51,7 @@ fun MangaDetailsLargeScreens(
 
     var chosenContentType by rememberSaveable { mutableStateOf(ContentType.Chapters) }
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(48.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         state = state,
         modifier = Modifier
             .fillMaxSize()
@@ -85,12 +85,22 @@ fun MangaDetailsLargeScreens(
         }
 
         item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        item {
             LargeScreensDescriptionSection(manga.attributes.description.en)
         }
 
         item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        item {
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 68.dp),
                 contentAlignment = Alignment.Center
             ) {
                 ChooseTypeOfInfoSection(
@@ -103,11 +113,17 @@ fun MangaDetailsLargeScreens(
         if(chosenContentType == ContentType.Chapters) {
             if(mangaChaptersLanguage != null) {
                 items(mangaChapters) { chapter ->
-                    MangaChapterItem(
-                        volume = chapter.attributes.volume,
-                        chapter = chapter.attributes.chapter,
-                        title = if(chapter.attributes.title != "") chapter.attributes.title else "No title provided :0"
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 52.dp) //Item already has horizontal padding 16.dp
+                    ) {
+                        MangaChapterItem(
+                            volume = chapter.attributes.volume,
+                            chapter = chapter.attributes.chapter,
+                            title = if(chapter.attributes.title != "") chapter.attributes.title else "No title provided :0"
+                        )
+                    }
                 }
             }
 

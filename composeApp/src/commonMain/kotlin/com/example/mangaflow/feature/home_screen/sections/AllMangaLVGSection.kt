@@ -35,7 +35,6 @@ fun AllMangaLVGSection(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         itemsIndexed(allManga) { index, manga ->
-            println("TAG: ${manga.id}")
             val mangaCoverFilename = manga.relationships.filter {
                 it.type == "cover_art"
             }[0].attributes?.fileName

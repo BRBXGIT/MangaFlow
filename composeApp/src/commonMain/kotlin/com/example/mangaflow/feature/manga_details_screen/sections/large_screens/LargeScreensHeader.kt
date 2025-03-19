@@ -100,8 +100,8 @@ fun LargeScreensHeader(
                 .height(200.dp + topPadding) //Same as the image height to create a bottom hit-box
                 .padding(
                     top = topPadding,
-                    start = 16.dp,
-                    end = 16.dp
+                    start = 68.dp,
+                    end = 68.dp
                 )
         ) {
             Box(
