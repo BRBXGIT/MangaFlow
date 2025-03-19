@@ -74,7 +74,7 @@ class MangaDetailsScreenVM(
         SharingStarted.WhileSubscribed(5_000),
         true
     )
-    private val _mangaChaptersLanguage = MutableStateFlow<String?>("en") //TODO -> Change to null
+    private val _mangaChaptersLanguage = MutableStateFlow<String?>(null) //TODO -> Change to null
     val mangaChaptersLanguage = _mangaChaptersLanguage.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),

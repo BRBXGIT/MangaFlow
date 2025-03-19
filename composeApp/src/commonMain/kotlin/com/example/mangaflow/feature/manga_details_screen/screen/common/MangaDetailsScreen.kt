@@ -71,8 +71,6 @@ fun MangaDetailsScreen(
             val mangaChaptersTranslationGroup by viewModel.selectedMangaChaptersScanlationGroup.collectAsStateWithLifecycle()
             val availableTranslationGroupsFiltered by viewModel.availableMangaChaptersScanlationGroups.collectAsStateWithLifecycle()
 
-            var translationLanguagesBSOpen by rememberSaveable { mutableStateOf(false) }
-            var translationGroupBSOpen by rememberSaveable { mutableStateOf(false) }
             if(showNavRail) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
@@ -93,47 +91,25 @@ fun MangaDetailsScreen(
                     mangaChaptersLoadingState = mangaChaptersLoadingState,
                     mangaChaptersLanguage = mangaChaptersLanguage,
                     mangaChapters = mangaChapters,
+                    availableTranslationGroupsFiltered = availableTranslationGroupsFiltered,
+                    mangaChaptersTranslationGroup = mangaChaptersTranslationGroup,
                     onMangaChaptersListEnd = {
                         if(mangaChaptersLanguage != null) {
                             viewModel.fetchMangaChapters(mangaId)
                         }
                     },
                     onSetTranslationLanguageClick = {
-                        translationLanguagesBSOpen = true
+                        viewModel.setMangaChaptersLanguage(it)
+                        viewModel.fetchMangaChapters(
+                            mangaId = manga.id,
+                            onComplete = { viewModel.setMangaScanlationGroups() }
+                        )
                     },
                     onSetTranslationGroupClick = {
-                        translationGroupBSOpen = true
+                        viewModel.setMangaScanlationGroupId(it.name, it.id)
+                        viewModel.fetchMangaChapters(manga.id)
                     },
                 )
-
-                if(translationLanguagesBSOpen) {
-                    MangaTranslateLanguageBS(
-                        onDismissRequest = { translationLanguagesBSOpen = false },
-                        availableLanguages = manga.attributes.availableTranslatedLanguages,
-                        selectedLanguage = mangaChaptersLanguage,
-                        onSetLanguageClick = {
-                            viewModel.setMangaChaptersLanguage(it)
-                            translationLanguagesBSOpen = false
-                            viewModel.fetchMangaChapters(
-                                mangaId = manga.id,
-                                onComplete = { viewModel.setMangaScanlationGroups() }
-                            )
-                        }
-                    )
-                }
-
-                if(translationGroupBSOpen) {
-                    MangaTranslateGroupBS(
-                        onSetGroupClick = {
-                            viewModel.setMangaScanlationGroupId(it.name, it.id)
-                            translationGroupBSOpen = false
-                            viewModel.fetchMangaChapters(manga.id)
-                        },
-                        onDismissRequest = { translationGroupBSOpen = false },
-                        availableGroups = availableTranslationGroupsFiltered!!,
-                        selectedGroup = mangaChaptersTranslationGroup
-                    )
-                }
             }
         }
     }

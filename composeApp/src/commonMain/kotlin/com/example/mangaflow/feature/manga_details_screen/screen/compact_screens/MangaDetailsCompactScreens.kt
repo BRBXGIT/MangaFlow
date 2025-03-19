@@ -21,11 +21,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
+import com.example.mangaflow.feature.manga_details_screen.screen.common.TranslateGroup
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertReadOrBuyLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.common.convertTrackLinks
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensDescriptionSection
@@ -33,6 +38,8 @@ import com.example.mangaflow.feature.manga_details_screen.sections.compact_scree
 import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.CompactScreensMangaAdditionalInfoSection
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChapterItem
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChaptersLoadingSection
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateGroupBS
+import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateLanguageBS
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data as MangaChaptersResponseData
 import com.example.mangaflow.core.data.network.models.manga_details_response.Data as MangaDetailsData
 
@@ -41,11 +48,13 @@ fun MangaDetailsCompactScreens(
     innerPadding: PaddingValues,
     manga: MangaDetailsData,
     onMangaChaptersListEnd: () -> Unit,
-    onSetTranslationLanguageClick: () -> Unit,
-    onSetTranslationGroupClick: () -> Unit,
+    onSetTranslationLanguageClick: (String) -> Unit,
+    onSetTranslationGroupClick: (TranslateGroup) -> Unit,
     mangaChaptersLoadingState: Boolean,
     mangaChaptersLanguage: String?,
     mangaChapters: List<MangaChaptersResponseData>,
+    availableTranslationGroupsFiltered: List<TranslateGroup>?,
+    mangaChaptersTranslationGroup: TranslateGroup?
 ) {
     val state = rememberLazyListState()
     LaunchedEffect(state) {
@@ -57,6 +66,8 @@ fun MangaDetailsCompactScreens(
             }
     }
 
+    var translationLanguagesBSOpen by rememberSaveable { mutableStateOf(false) }
+    var translationGroupBSOpen by rememberSaveable { mutableStateOf(false) }
     LazyColumn(
         state = state,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -130,9 +141,7 @@ fun MangaDetailsCompactScreens(
 
                 Button(
                     shape = mShapes.extraSmall,
-                    onClick = {
-                        onSetTranslationLanguageClick()
-                    },
+                    onClick = { translationLanguagesBSOpen = true },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
@@ -150,7 +159,7 @@ fun MangaDetailsCompactScreens(
                 ) {
                     Button(
                         shape = mShapes.extraSmall,
-                        onClick = { onSetTranslationGroupClick() },
+                        onClick = { translationGroupBSOpen = true },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
@@ -183,5 +192,29 @@ fun MangaDetailsCompactScreens(
         item {
             Spacer(modifier = Modifier.height(0.dp))
         }
+    }
+
+    if(translationLanguagesBSOpen) {
+        MangaTranslateLanguageBS(
+            onDismissRequest = { translationLanguagesBSOpen = false },
+            availableLanguages = manga.attributes.availableTranslatedLanguages,
+            selectedLanguage = mangaChaptersLanguage,
+            onSetLanguageClick = {
+                onSetTranslationLanguageClick(it)
+                translationLanguagesBSOpen = false
+            }
+        )
+    }
+
+    if(translationGroupBSOpen) {
+        MangaTranslateGroupBS(
+            onSetGroupClick = {
+                onSetTranslationGroupClick(TranslateGroup(it.name, it.id))
+                translationGroupBSOpen = false
+            },
+            onDismissRequest = { translationGroupBSOpen = false },
+            availableGroups = availableTranslationGroupsFiltered!!,
+            selectedGroup = mangaChaptersTranslationGroup
+        )
     }
 }
