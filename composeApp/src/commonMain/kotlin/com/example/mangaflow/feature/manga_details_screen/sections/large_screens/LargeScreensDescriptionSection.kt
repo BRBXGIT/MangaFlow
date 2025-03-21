@@ -16,6 +16,6 @@ fun LargeScreensDescriptionSection(
     Text(
         text = AnnotatedString.fromHtml(description),
         style = mTypography.bodyMedium,
-        modifier = Modifier.padding(horizontal = 68.dp)
+        modifier = Modifier.padding(horizontal = 16.dp)
     )
 }

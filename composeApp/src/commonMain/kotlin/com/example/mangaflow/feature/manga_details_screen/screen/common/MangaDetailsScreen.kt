@@ -9,9 +9,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -22,8 +19,6 @@ import com.example.mangaflow.feature.common.NavRail
 import com.example.mangaflow.feature.manga_details_screen.screen.compact_screens.MangaDetailsCompactScreens
 import com.example.mangaflow.feature.manga_details_screen.screen.large_screens.MangaDetailsLargeScreens
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaDetailsScreenTopBar
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateGroupBS
-import com.example.mangaflow.feature.manga_details_screen.sections.compact_screens.MangaTranslateLanguageBS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,14 +70,27 @@ fun MangaDetailsScreen(
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
                     manga = manga,
+                    mangaChaptersLanguage = mangaChaptersLanguage,
+                    mangaChapters = mangaChapters,
+                    mangaChaptersLoadingState = mangaChaptersLoadingState,
+                    mangaChaptersTranslationGroup = mangaChaptersTranslationGroup,
+                    availableTranslationGroupsFiltered = availableTranslationGroupsFiltered,
                     onMangaChaptersListEnd = {
                         if(mangaChaptersLanguage != null) {
                             viewModel.fetchMangaChapters(mangaId)
                         }
                     },
-                    mangaChaptersLanguage = mangaChaptersLanguage,
-                    mangaChapters = mangaChapters,
-                    mangaChaptersLoadingState = mangaChaptersLoadingState
+                    onSetTranslationLanguageClick = {
+                        viewModel.setMangaChaptersLanguage(it)
+                        viewModel.fetchMangaChapters(
+                            mangaId = manga.id,
+                            onComplete = { viewModel.setMangaScanlationGroups() }
+                        )
+                    },
+                    onSetTranslationGroupClick = {
+                        viewModel.setMangaScanlationGroupId(it.name, it.id)
+                        viewModel.fetchMangaChapters(manga.id)
+                    }
                 )
             } else {
                 MangaDetailsCompactScreens(

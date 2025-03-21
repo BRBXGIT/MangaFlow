@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.core.design_system.theme.mTypography
 import com.example.mangaflow.feature.manga_details_screen.screen.common.TranslateGroup
+import com.example.mangaflow.feature.manga_details_screen.sections.common.SelectTranslationGroupLCSection
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,66 +39,10 @@ fun MangaTranslateGroupBS(
     ) {
         HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
-        LazyColumn(
-            contentPadding = PaddingValues(vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            if(availableGroups.isNotEmpty()) {
-                items(availableGroups) { group ->
-                    GroupItem(
-                        selectedGroup = selectedGroup,
-                        onRadioClick = {
-                            onSetGroupClick(
-                                TranslateGroup(
-                                    name = group.name,
-                                    id = group.id
-                                )
-                            )
-                        },
-                        group = group
-                    )
-                }
-            } else {
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "No groups found :("
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun GroupItem(
-    selectedGroup: TranslateGroup?,
-    onRadioClick: () -> Unit,
-    group: TranslateGroup
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = group.name,
-            style = mTypography.bodyLarge
-        )
-
-        RadioButton(
-            selected = selectedGroup?.id == group.id,
-            onClick = { onRadioClick() },
-            modifier = Modifier.size(16.dp)
+        SelectTranslationGroupLCSection(
+            availableGroups = availableGroups,
+            onSetGroupClick = { onSetGroupClick(it) },
+            selectedGroup = selectedGroup
         )
     }
 }
