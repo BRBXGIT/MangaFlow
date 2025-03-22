@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.mangaflow.common.functions.showNavRail
+import com.example.mangaflow.feature.auth_screen.navigation.authScreen
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
 import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 import com.example.mangaflow.feature.home_screen.navigation.homeScreen
@@ -48,6 +49,8 @@ fun NavGraph() {
                 navController = navController,
                 showNavRail = showNavRail
             )
+
+            authScreen()
         }
     }
 }

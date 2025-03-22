@@ -6,6 +6,11 @@ import org.koin.dsl.KoinAppDeclaration
 fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
-        modules(homeScreenModule, dispatchersModule, mangaDetailsScreenModule)
+        modules(
+            homeScreenModule,
+            dispatchersModule,
+            mangaDetailsScreenModule,
+            authScreenModule
+        )
     }
 }

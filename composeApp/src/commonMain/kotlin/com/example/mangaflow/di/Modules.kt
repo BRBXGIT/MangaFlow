@@ -1,12 +1,16 @@
 package com.example.mangaflow.di
 
+import com.example.mangaflow.core.data.network.ktor.AuthScreensKtorClient
 import com.example.mangaflow.core.data.network.ktor.MangaDetailsScreenKtorClient
 import com.example.mangaflow.core.data.network.ktor.HomeScreenKtorClient
 import com.example.mangaflow.core.data.network.ktor.createHttpClient
+import com.example.mangaflow.core.data.repositories.AuthScreenRepoImpl
 import com.example.mangaflow.core.data.repositories.MangaDetailsScreenRepoImpl
 import com.example.mangaflow.core.data.repositories.HomeScreenRepoImpl
+import com.example.mangaflow.core.repositories.AuthScreenRepo
 import com.example.mangaflow.core.repositories.MangaDetailsScreenRepo
 import com.example.mangaflow.core.repositories.HomeScreenRepo
+import com.example.mangaflow.feature.auth_screen.screen.AuthScreenVM
 import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
 import com.example.mangaflow.feature.manga_details_screen.screen.common.MangaDetailsScreenVM
 import io.ktor.client.engine.okhttp.OkHttp
@@ -44,4 +48,16 @@ val mangaDetailsScreenModule = module {
     }
     singleOf(::MangaDetailsScreenRepoImpl).bind<MangaDetailsScreenRepo>()
     viewModelOf(::MangaDetailsScreenVM)
+}
+
+val authScreenModule = module {
+    single {
+        AuthScreensKtorClient(
+            createHttpClient(
+                OkHttp.create()
+            )
+        )
+    }
+    singleOf(::AuthScreenRepoImpl).bind<AuthScreenRepo>()
+    viewModelOf(::AuthScreenVM)
 }

@@ -21,12 +21,12 @@ fun NavGraphBuilder.mangaDetailsScreen(
     showNavRail: Boolean
 ) = composable<MangaDetailsScreenRoute> {
     val mangaDetailsScreenVM = koinViewModel<MangaDetailsScreenVM>()
-    val magnaId = it.toRoute<MangaDetailsScreenRoute>().mangaId
+    val mangaId = it.toRoute<MangaDetailsScreenRoute>().mangaId
 
     MangaDetailsScreen(
         navController = navController,
         showNavRail = showNavRail,
         viewModel = mangaDetailsScreenVM,
-        mangaId = magnaId
+        mangaId = mangaId
     )
 }
