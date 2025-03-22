@@ -15,5 +15,7 @@ data object AuthScreenRoute
 fun NavGraphBuilder.authScreen() = composable<AuthScreenRoute> {
     val authScreenVM = koinViewModel<AuthScreenVM>()
 
-    AuthScreen()
+    AuthScreen(
+        viewModel = authScreenVM
+    )
 }

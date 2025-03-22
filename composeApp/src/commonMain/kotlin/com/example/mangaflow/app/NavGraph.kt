@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.mangaflow.common.functions.showNavRail
+import com.example.mangaflow.feature.auth_screen.navigation.AuthScreenRoute
 import com.example.mangaflow.feature.auth_screen.navigation.authScreen
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
-import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 import com.example.mangaflow.feature.home_screen.navigation.homeScreen
 import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
 import com.example.mangaflow.feature.manga_details_screen.navigation.mangaDetailsScreen
@@ -26,7 +26,7 @@ fun NavGraph() {
 
         val showNavRail = showNavRail()
         NavHost(
-            startDestination = HomeScreenRoute,
+            startDestination = AuthScreenRoute,
             navController = navController
         ) {
             homeScreen(
