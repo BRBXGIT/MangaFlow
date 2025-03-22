@@ -34,7 +34,8 @@ fun MangaDetailsScreenTopBar(
     mangaTitle: String?,
     mangaLoadingState: Boolean,
     scrollBehavior: TopAppBarScrollBehavior,
-    onNavIconClick: () -> Unit
+    onNavIconClick: () -> Unit,
+    showNavRail: Boolean
 ) {
     var title by rememberSaveable { mutableStateOf("Loading...") }
     LaunchedEffect(mangaTitle) {
@@ -64,13 +65,15 @@ fun MangaDetailsScreenTopBar(
                 }
             },
             navigationIcon = {
-                IconButton(
-                    onClick = { onNavIconClick() },
-                ) {
-                    Icon(
-                        painter = painterResource(MangaFlowIcons.NavigationArrowLeftFilled),
-                        contentDescription = null
-                    )
+                if(!showNavRail) {
+                    IconButton(
+                        onClick = { onNavIconClick() },
+                    ) {
+                        Icon(
+                            painter = painterResource(MangaFlowIcons.NavigationArrowLeftFilled),
+                            contentDescription = null
+                        )
+                    }
                 }
             }
         )

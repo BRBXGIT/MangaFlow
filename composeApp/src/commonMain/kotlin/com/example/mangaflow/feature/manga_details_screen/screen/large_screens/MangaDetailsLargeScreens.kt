@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mangaflow.core.data.network.models.manga_chapters_response.Data
 import com.example.mangaflow.core.design_system.theme.mColors
+import com.example.mangaflow.core.design_system.theme.mShapes
 import com.example.mangaflow.feature.manga_details_screen.screen.common.TranslateGroup
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChapterItem
 import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaChaptersLoadingSection
@@ -64,9 +65,12 @@ fun MangaDetailsLargeScreens(
         drawerContent = {
             Box(
                 modifier = Modifier
-                    .width(160.dp)
+                    .width(240.dp)
                     .fillMaxHeight()
-                    .background(mColors.surfaceContainer)
+                    .background(
+                        color = mColors.surfaceContainer,
+                        shape = mShapes.small
+                    )
                     .padding(top = innerPadding.calculateTopPadding())
             ) {
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
@@ -80,7 +84,7 @@ fun MangaDetailsLargeScreens(
                             drawerScope.launch {
                                 drawerState.close()
                             }
-                        },
+                        }
                     )
                 }
 
@@ -98,7 +102,7 @@ fun MangaDetailsLargeScreens(
                 }
             }
         },
-        gesturesEnabled = false
+        gesturesEnabled = false,
     ) {
         val state = rememberLazyListState()
         LaunchedEffect(state) {

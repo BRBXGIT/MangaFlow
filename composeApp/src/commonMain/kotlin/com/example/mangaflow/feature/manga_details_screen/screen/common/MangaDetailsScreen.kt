@@ -45,7 +45,8 @@ fun MangaDetailsScreen(
                     mangaTitle = if(manga.attributes.title.en != "") manga.attributes.title.en else "No title provided :0",
                     mangaLoadingState = mangaLoadingState,
                     scrollBehavior = topBarScrollBehavior,
-                    onNavIconClick = { navController.navigateUp() }
+                    onNavIconClick = { navController.navigateUp() },
+                    showNavRail = showNavRail
                 )
             },
             modifier = Modifier
