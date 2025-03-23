@@ -9,6 +9,10 @@ plugins {
     alias(libs.plugins.composeCompiler)
     //Serialization
     alias(libs.plugins.kotlin.serialization)
+    //Ksp
+    alias(libs.plugins.ksp)
+    //Room
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -67,6 +71,9 @@ kotlin {
             implementation(libs.haze)
             //For iterating over data classes
             implementation(kotlin("reflect"))
+            //Room
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
         desktopMain.dependencies {
             //Basic impl
@@ -107,8 +114,15 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
+    //Compose tooling
     debugImplementation(compose.uiTooling)
+    //Room
+    ksp(libs.room.compiler)
 }
 
 compose.desktop {

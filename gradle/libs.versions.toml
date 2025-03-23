@@ -41,6 +41,10 @@ lifecycleViewModel = "2.8.7"
 navigationCompose = "2.8.0-alpha10"
 kotlinxSerializationJson = "1.8.0"
 
+#Room
+room = "2.7.0-rc02"
+sqlite = "2.5.0-SNAPSHOT"
+
 
 [libraries]
 #Basic libraries
@@ -91,6 +95,12 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 
+#Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-runtime-android = { module = "androidx.room:room-runtime-android", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
 
 [plugins]
 #Basic plugins
@@ -105,6 +115,9 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 #Ksp
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspPlugin" }
+
+#Room
+room = { id = "androidx.room", version.ref = "room" }
 
 
 [bundles]
