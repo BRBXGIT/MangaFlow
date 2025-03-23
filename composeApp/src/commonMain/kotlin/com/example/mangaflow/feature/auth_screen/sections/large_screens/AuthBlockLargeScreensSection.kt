@@ -1,0 +1,123 @@
+package com.example.mangaflow.feature.auth_screen.sections.large_screens
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
+import com.example.mangaflow.core.design_system.custom_modifiers.noRippleClickable
+import com.example.mangaflow.core.design_system.theme.mColors
+import com.example.mangaflow.core.design_system.theme.mShapes
+import com.example.mangaflow.core.design_system.theme.mTypography
+
+@Composable
+fun ColumnScope.AuthBlockLargeScreensSection(
+    onAuthenticateClick: () -> Unit
+) {
+    Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(0.3f)
+                .background(
+                    color = mColors.surfaceContainerHigh,
+                    shape = RoundedCornerShape(
+                        topEnd = 8.dp,
+                        topStart = 8.dp
+                    )
+                )
+                .padding(24.dp)
+
+        ) {
+            Text(
+                text = "Sign in to your account",
+                style = mTypography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+
+            var username by rememberSaveable { mutableStateOf("") }
+            TextField(
+                value = username,
+                onValueChange = { username = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(text = "Username") }
+            )
+
+            var password by rememberSaveable { mutableStateOf("") }
+            TextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(text = "Password") }
+            )
+
+            Button(
+                shape = mShapes.small,
+                onClick = {  },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(text = "Sign in")
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(0.3f)
+                .background(
+                    color = mColors.surfaceContainerHighest,
+                    shape = RoundedCornerShape(
+                        bottomEnd = 8.dp,
+                        bottomStart = 8.dp
+                    )
+                )
+                .padding(vertical = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Row {
+                Text(
+                    text = "New user? ",
+                    style = mTypography.labelLarge
+                )
+
+                Text(
+                    text = "Register",
+                    style = mTypography.labelLarge.copy(
+                        color = mColors.primary,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier
+                        .clip(mShapes.small)
+                        .noRippleClickable {  }
+                )
+            }
+        }
+    }
+}

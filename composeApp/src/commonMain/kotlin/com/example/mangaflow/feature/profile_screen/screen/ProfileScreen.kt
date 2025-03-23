@@ -14,11 +14,11 @@ import com.example.mangaflow.feature.common.NavRail
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) {
     Scaffold(
         bottomBar = {
-            if(!showNavRail) {
+            if(!bigScreen) {
                 NavBar(navController)
             }
         },
@@ -29,7 +29,7 @@ fun ProfileScreen(
         Text("Profile crene")
     }
 
-    if(showNavRail) {
+    if(bigScreen) {
         NavRail(navController)
     }
 }

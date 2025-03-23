@@ -3,7 +3,7 @@ package com.example.mangaflow.app
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.mangaflow.common.functions.showNavRail
+import com.example.mangaflow.common.functions.isBigScreen
 import com.example.mangaflow.feature.auth_screen.navigation.AuthScreenRoute
 import com.example.mangaflow.feature.auth_screen.navigation.authScreen
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
@@ -24,7 +24,7 @@ fun NavGraph() {
         //Declare values here to don't fetch mangaLists multiple times
         val homeScreenVM = koinViewModel<HomeScreenVM>()
 
-        val showNavRail = showNavRail()
+        val bigScreen = isBigScreen()
         NavHost(
             startDestination = AuthScreenRoute,
             navController = navController
@@ -32,25 +32,27 @@ fun NavGraph() {
             homeScreen(
                 navController = navController,
                 homeScreenVM = homeScreenVM,
-                showNavRail = showNavRail
+                bigScreen = bigScreen
             )
 
             bookmarksScreen(
                 navController = navController,
-                showNavRail = showNavRail
+                bigScreen = bigScreen
             )
 
             profileScreen(
                 navController = navController,
-                showNavRail = showNavRail
+                bigScreen = bigScreen
             )
 
             mangaDetailsScreen(
                 navController = navController,
-                showNavRail = showNavRail
+                bigScreen = bigScreen
             )
 
-            authScreen()
+            authScreen(
+                bigScreen = bigScreen
+            )
         }
     }
 }

@@ -14,11 +14,11 @@ import com.example.mangaflow.feature.common.NavRail
 @Composable
 fun BookmarksScreen(
     navController: NavController,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) {
     Scaffold(
         bottomBar = {
-            if(!showNavRail) {
+            if(!bigScreen) {
                 NavBar(navController)
             }
         },
@@ -29,7 +29,7 @@ fun BookmarksScreen(
         Text("Bookmarks")
     }
 
-    if(showNavRail) {
+    if(bigScreen) {
         NavRail(navController)
     }
 }

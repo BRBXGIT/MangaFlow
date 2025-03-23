@@ -24,7 +24,7 @@ import com.example.mangaflow.feature.manga_details_screen.sections.common.MangaD
 @Composable
 fun MangaDetailsScreen(
     navController: NavController,
-    showNavRail: Boolean,
+    bigScreen: Boolean,
     viewModel: MangaDetailsScreenVM,
     mangaId: String
 ) {
@@ -46,14 +46,14 @@ fun MangaDetailsScreen(
                     mangaLoadingState = mangaLoadingState,
                     scrollBehavior = topBarScrollBehavior,
                     onNavIconClick = { navController.navigateUp() },
-                    showNavRail = showNavRail
+                    showNavRail = bigScreen
                 )
             },
             modifier = Modifier
                 .fillMaxSize()
                 .background(mColors.background)
                 .then(
-                    if(showNavRail) {
+                    if(bigScreen) {
                         Modifier.padding(start = 80.dp)
                     } else {
                         Modifier.padding(start = 0.dp)
@@ -67,7 +67,7 @@ fun MangaDetailsScreen(
             val mangaChaptersTranslationGroup by viewModel.selectedMangaChaptersScanlationGroup.collectAsStateWithLifecycle()
             val availableTranslationGroupsFiltered by viewModel.availableMangaChaptersScanlationGroups.collectAsStateWithLifecycle()
 
-            if(showNavRail) {
+            if(bigScreen) {
                 MangaDetailsLargeScreens(
                     innerPadding = innerPadding,
                     manga = manga,
@@ -123,7 +123,7 @@ fun MangaDetailsScreen(
         }
     }
 
-    if(showNavRail) {
+    if(bigScreen) {
         NavRail(navController)
     }
 }

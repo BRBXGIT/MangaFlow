@@ -13,11 +13,11 @@ object HomeScreenRoute
 fun NavGraphBuilder.homeScreen(
     navController: NavController,
     homeScreenVM: HomeScreenVM,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) = composable<HomeScreenRoute> {
     HomeScreen(
         navController = navController,
         viewModel = homeScreenVM,
-        showNavRail = showNavRail
+        bigScreen = bigScreen
     )
 }

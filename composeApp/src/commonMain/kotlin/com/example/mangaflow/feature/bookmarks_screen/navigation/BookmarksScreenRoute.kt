@@ -11,10 +11,10 @@ data object BookmarksScreenRoute
 
 fun NavGraphBuilder.bookmarksScreen(
     navController: NavController,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) = composable<BookmarksScreenRoute> {
     BookmarksScreen(
         navController = navController,
-        showNavRail = showNavRail
+        bigScreen = bigScreen
     )
 }

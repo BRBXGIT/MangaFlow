@@ -18,14 +18,14 @@ data class MangaDetailsScreenRoute(
 @OptIn(KoinExperimentalAPI::class)
 fun NavGraphBuilder.mangaDetailsScreen(
     navController: NavController,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) = composable<MangaDetailsScreenRoute> {
     val mangaDetailsScreenVM = koinViewModel<MangaDetailsScreenVM>()
     val mangaId = it.toRoute<MangaDetailsScreenRoute>().mangaId
 
     MangaDetailsScreen(
         navController = navController,
-        showNavRail = showNavRail,
+        bigScreen = bigScreen,
         viewModel = mangaDetailsScreenVM,
         mangaId = mangaId
     )

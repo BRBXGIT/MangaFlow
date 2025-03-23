@@ -8,7 +8,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 
 @Composable
-actual fun showNavRail(): Boolean {
+actual fun isBigScreen(): Boolean {
     val windowSize = calculateWindowSizeClass()
     val showNavRail = windowSize.widthSizeClass != WindowWidthSizeClass.Compact
 

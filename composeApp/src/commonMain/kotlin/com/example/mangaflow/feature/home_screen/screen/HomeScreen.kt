@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     navController: NavController,
     viewModel: HomeScreenVM,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) {
     //Snackbars stuff
     val snackbarHostState = remember { SnackbarHostState() }
@@ -70,7 +70,7 @@ fun HomeScreen(
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         bottomBar = {
-            if(!showNavRail) {
+            if(!bigScreen) {
                 NavBar(navController)
             }
         },
@@ -79,7 +79,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .then(
-                if(showNavRail) {
+                if(bigScreen) {
                     Modifier.padding(start = 80.dp)
                 } else {
                     Modifier.padding(start = 0.dp)
@@ -110,7 +110,7 @@ fun HomeScreen(
         )
     }
 
-    if(showNavRail) {
+    if(bigScreen) {
         NavRail(navController)
     }
 }

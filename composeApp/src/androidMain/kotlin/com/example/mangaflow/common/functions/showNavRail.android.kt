@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-actual fun showNavRail(): Boolean {
+actual fun isBigScreen(): Boolean {
     val context = LocalContext.current
     val activity = context as? Activity ?: return false
 

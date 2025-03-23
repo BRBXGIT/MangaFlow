@@ -10,7 +10,7 @@ import com.example.mangaflow.core.data.repositories.HomeScreenRepoImpl
 import com.example.mangaflow.core.repositories.AuthScreenRepo
 import com.example.mangaflow.core.repositories.MangaDetailsScreenRepo
 import com.example.mangaflow.core.repositories.HomeScreenRepo
-import com.example.mangaflow.feature.auth_screen.screen.AuthScreenVM
+import com.example.mangaflow.feature.auth_screen.screen.common.AuthScreenVM
 import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
 import com.example.mangaflow.feature.manga_details_screen.screen.common.MangaDetailsScreenVM
 import io.ktor.client.engine.okhttp.OkHttp

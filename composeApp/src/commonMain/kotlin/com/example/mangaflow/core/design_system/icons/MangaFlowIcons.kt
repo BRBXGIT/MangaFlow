@@ -13,6 +13,7 @@ import mangaflow.composeapp.generated.resources.ic_plus_circle
 import mangaflow.composeapp.generated.resources.ic_settings
 import mangaflow.composeapp.generated.resources.ic_user
 import mangaflow.composeapp.generated.resources.ic_user_filled
+import mangaflow.composeapp.generated.resources.ic_yin_yang_multicolor
 
 object MangaFlowIcons {
     val Settings = Res.drawable.ic_settings
@@ -27,4 +28,5 @@ object MangaFlowIcons {
     val PlusCircle = Res.drawable.ic_plus_circle
     val Book = Res.drawable.ic_book
     val ArrowUpFilled = Res.drawable.ic_arrow_up
+    val YinYangMulticolor = Res.drawable.ic_yin_yang_multicolor
 }

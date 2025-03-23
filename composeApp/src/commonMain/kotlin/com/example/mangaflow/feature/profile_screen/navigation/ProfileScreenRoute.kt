@@ -11,10 +11,10 @@ data object ProfileScreenRoute
 
 fun NavGraphBuilder.profileScreen(
     navController: NavController,
-    showNavRail: Boolean
+    bigScreen: Boolean
 ) = composable<ProfileScreenRoute> {
     ProfileScreen(
         navController = navController,
-        showNavRail = showNavRail
+        bigScreen = bigScreen
     )
 }
