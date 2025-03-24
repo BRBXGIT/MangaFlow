@@ -3,6 +3,7 @@ package com.example.mangaflow.feature.auth_screen.screen.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
+import com.example.mangaflow.core.data.local.MangaFlowUser
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
@@ -46,6 +47,12 @@ class AuthScreenVM(
             }
             response.onSuccess { data ->
                 _accessToken.value = data.accessToken
+                repository.upsertMangaFlowUser(
+                    MangaFlowUser(
+                        accessToken = data.accessToken,
+                        refreshToken = data.refreshToken
+                    )
+                )
             }
         }
     }

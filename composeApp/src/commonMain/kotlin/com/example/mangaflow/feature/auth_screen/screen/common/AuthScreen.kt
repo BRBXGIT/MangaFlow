@@ -30,7 +30,9 @@ fun AuthScreen(
             )
         } else {
             AuthCompactScreens(
-                onAuthenticateClick = {  }
+                onAuthenticateClick = {
+                    viewModel.fetchUserAccessToken("BRBX", "dt2005mm")
+                }
             )
         }
     }
