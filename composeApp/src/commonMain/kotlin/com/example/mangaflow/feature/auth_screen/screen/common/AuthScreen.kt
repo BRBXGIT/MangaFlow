@@ -26,7 +26,9 @@ fun AuthScreen(
         if(bigScreen) {
             AuthLargeScreens(
                 innerPadding = innerPadding,
-                onAuthenticateClick = {  }
+                onAuthenticateClick = { userName, password ->
+                    viewModel.fetchUserAccessToken(userName, password)
+                }
             )
         } else {
             AuthCompactScreens(

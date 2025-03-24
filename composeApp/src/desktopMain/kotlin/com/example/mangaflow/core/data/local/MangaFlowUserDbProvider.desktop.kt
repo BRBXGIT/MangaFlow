@@ -1,6 +1,7 @@
 package com.example.mangaflow.core.data.local
 
 import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -9,6 +10,8 @@ actual class MangaFlowUserDbProvider {
         val dbFile = File(System.getProperty("java.io.tmpdir"), "manga_flow_user_db.db")
         return Room.databaseBuilder<MangaFlowUserDb>(
             name = dbFile.absolutePath,
-        ).build()
+        )
+            .setDriver(BundledSQLiteDriver())
+            .build()
     }
 }

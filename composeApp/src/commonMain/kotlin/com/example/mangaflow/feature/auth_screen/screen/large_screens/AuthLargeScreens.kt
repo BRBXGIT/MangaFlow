@@ -15,7 +15,7 @@ import com.example.mangaflow.feature.auth_screen.sections.large_screens.AuthBloc
 
 @Composable
 fun AuthLargeScreens(
-    onAuthenticateClick: () -> Unit,
+    onAuthenticateClick: (userName: String, password: String) -> Unit,
     innerPadding: PaddingValues
 ) {
     Box(
@@ -30,7 +30,9 @@ fun AuthLargeScreens(
             AppTitleLargeScreenSection()
 
             AuthBlockLargeScreensSection(
-                onAuthenticateClick = {}
+                onAuthenticateClick = { userName, password ->
+                    onAuthenticateClick(userName, password)
+                }
             )
         }
     }
