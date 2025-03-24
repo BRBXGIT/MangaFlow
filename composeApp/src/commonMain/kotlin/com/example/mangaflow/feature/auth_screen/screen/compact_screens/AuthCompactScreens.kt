@@ -1,28 +1,41 @@
 package com.example.mangaflow.feature.auth_screen.screen.compact_screens
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.mangaflow.feature.auth_screen.sections.common.AppTitleSection
+import com.example.mangaflow.feature.auth_screen.sections.compact_screens.AuthBlockCompactScreensSection
+import com.example.mangaflow.feature.auth_screen.sections.compact_screens.NewUserCompactScreensSection
 
 @Composable
 fun AuthCompactScreens(
-    onAuthenticateClick: () -> Unit,
+    onAuthenticateClick: (userName: String, password: String) -> Unit,
     innerPadding: PaddingValues
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
+            .padding(
+                bottom = innerPadding.calculateBottomPadding() + 32.dp,
+                top = innerPadding.calculateTopPadding() + 32.dp,
+                start = 16.dp,
+                end = 16.dp
+            ),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Button(
-            onClick = { onAuthenticateClick() }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            Text("Authentication")
+            AppTitleSection()
+
+            AuthBlockCompactScreensSection(onAuthenticateClick)
         }
+
+        NewUserCompactScreensSection()
     }
 }

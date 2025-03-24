@@ -1,4 +1,4 @@
-package com.example.mangaflow.feature.auth_screen.sections.large_screens
+package com.example.mangaflow.feature.auth_screen.sections.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import com.example.mangaflow.core.design_system.theme.mTypography
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun ColumnScope.AppTitleLargeScreenSection() {
+fun ColumnScope.AppTitleSection() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),

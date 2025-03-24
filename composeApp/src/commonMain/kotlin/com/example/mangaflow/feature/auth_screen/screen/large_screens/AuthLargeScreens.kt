@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mangaflow.feature.auth_screen.sections.large_screens.AppTitleLargeScreenSection
+import com.example.mangaflow.feature.auth_screen.sections.common.AppTitleSection
 import com.example.mangaflow.feature.auth_screen.sections.large_screens.AuthBlockLargeScreensSection
 
 @Composable
@@ -27,7 +27,7 @@ fun AuthLargeScreens(
         Column(
             verticalArrangement = Arrangement.spacedBy(36.dp)
         ) {
-            AppTitleLargeScreenSection()
+            AppTitleSection()
 
             AuthBlockLargeScreensSection(
                 onAuthenticateClick = { userName, password ->

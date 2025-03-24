@@ -5,10 +5,13 @@ import mangaflow.composeapp.generated.resources.ic_arrow_up
 import mangaflow.composeapp.generated.resources.ic_book
 import mangaflow.composeapp.generated.resources.ic_bookmark
 import mangaflow.composeapp.generated.resources.ic_bookmark_filled
+import mangaflow.composeapp.generated.resources.ic_eye
+import mangaflow.composeapp.generated.resources.ic_eye_closed
 import mangaflow.composeapp.generated.resources.ic_home
 import mangaflow.composeapp.generated.resources.ic_home_filled
 import mangaflow.composeapp.generated.resources.ic_magnifer
 import mangaflow.composeapp.generated.resources.ic_navigation_arrow_left_filled
+import mangaflow.composeapp.generated.resources.ic_password
 import mangaflow.composeapp.generated.resources.ic_plus_circle
 import mangaflow.composeapp.generated.resources.ic_settings
 import mangaflow.composeapp.generated.resources.ic_user
@@ -29,4 +32,7 @@ object MangaFlowIcons {
     val Book = Res.drawable.ic_book
     val ArrowUpFilled = Res.drawable.ic_arrow_up
     val YinYangMulticolor = Res.drawable.ic_yin_yang_multicolor
+    val Eye = Res.drawable.ic_eye
+    val EyeClosed = Res.drawable.ic_eye_closed
+    val Password = Res.drawable.ic_password
 }
