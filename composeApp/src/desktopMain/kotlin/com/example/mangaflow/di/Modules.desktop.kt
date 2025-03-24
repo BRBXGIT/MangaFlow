@@ -20,7 +20,9 @@ actual val authScreenModule = module {
             )
         )
     }
-    singleOf(::MangaFlowUserDbProvider)
+    single {
+        MangaFlowUserDbProvider().provideMangaFlowUserDb()
+    }
     singleOf(::AuthScreenRepoImpl).bind<AuthScreenRepo>()
     viewModelOf(::AuthScreenVM)
 }

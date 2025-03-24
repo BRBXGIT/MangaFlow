@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface MangaFlowUserDao {
 
     @Query("SELECT * FROM MangaFlowUser")
-    suspend fun getMangaFlowUser(): Flow<List<MangaFlowUser>>
+    fun getMangaFlowUser(): Flow<List<MangaFlowUser>>
 
     @Upsert
     suspend fun upsertMangaFlowUser(user: MangaFlowUser)

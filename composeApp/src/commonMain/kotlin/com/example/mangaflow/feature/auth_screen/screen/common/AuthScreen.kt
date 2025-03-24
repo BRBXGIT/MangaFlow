@@ -30,6 +30,7 @@ fun AuthScreen(
             )
         } else {
             AuthCompactScreens(
+                innerPadding = innerPadding,
                 onAuthenticateClick = {
                     viewModel.fetchUserAccessToken("BRBX", "dt2005mm")
                 }

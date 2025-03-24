@@ -7,6 +7,7 @@ import com.example.mangaflow.core.data.repositories.AuthScreenRepoImpl
 import com.example.mangaflow.core.repositories.AuthScreenRepo
 import com.example.mangaflow.feature.auth_screen.screen.common.AuthScreenVM
 import io.ktor.client.engine.okhttp.OkHttp
+import org.koin.android.ext.koin.androidContext
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -20,7 +21,9 @@ actual val authScreenModule = module {
             )
         )
     }
-    singleOf(::MangaFlowUserDbProvider)
+    single {
+        MangaFlowUserDbProvider(androidContext()).provideMangaFlowUserDb()
+    }
     singleOf(::AuthScreenRepoImpl).bind<AuthScreenRepo>()
     viewModelOf(::AuthScreenVM)
 }

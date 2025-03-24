@@ -7,6 +7,7 @@ import com.example.mangaflow.core.data.network.models.user_access_token_response
 import com.example.mangaflow.core.data.network.utils.NetworkError
 import com.example.mangaflow.core.data.network.utils.Result
 import com.example.mangaflow.core.repositories.AuthScreenRepo
+import kotlinx.coroutines.flow.Flow
 
 class AuthScreenRepoImpl(
     private val ktorClient: AuthScreensKtorClient,
@@ -22,5 +23,9 @@ class AuthScreenRepoImpl(
 
     override suspend fun upsertMangaFlowUser(user: MangaFlowUser) {
         mangaFlowUserDb.mangaFlowUserDao().upsertMangaFlowUser(user)
+    }
+
+    override fun getMangaFlowUser(): Flow<List<MangaFlowUser>> {
+        return mangaFlowUserDb.mangaFlowUserDao().getMangaFlowUser()
     }
 }

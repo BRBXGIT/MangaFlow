@@ -53,6 +53,9 @@ class AuthScreenVM(
                         refreshToken = data.refreshToken
                     )
                 )
+                repository.getMangaFlowUser().collect {
+                    println("TAG: ${it[0]}")
+                }
             }
         }
     }
