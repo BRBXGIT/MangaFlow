@@ -21,10 +21,16 @@ class AuthScreenVM(
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
 
+    private val _success = MutableStateFlow(false)
+    val success = _success.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        false
+    )
+
     fun fetchUserAccessToken(
         userName: String,
         password: String,
-        onSuccess: () -> Unit
     ) {
         viewModelScope.launch(dispatcherIo) {
             val response = repository.getUserAccessToken(userName, password)
@@ -34,7 +40,7 @@ class AuthScreenVM(
                         message = processNetworkErrorsForUi(error),
                         action = SnackbarAction(
                             name = "Try again",
-                            action = { fetchUserAccessToken(userName, password, onSuccess) }
+                            action = { fetchUserAccessToken(userName, password) }
                         )
                     )
                 )
@@ -47,7 +53,7 @@ class AuthScreenVM(
                     )
                 )
                 repository.setIsAuthenticatedKey(true)
-                onSuccess()
+                _success.value = true
             }
         }
     }
