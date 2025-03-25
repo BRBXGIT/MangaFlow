@@ -74,6 +74,8 @@ kotlin {
             //Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+            //Multiplatform Settings(Shared prefs for kmp)
+            implementation(libs.multiplatform.settings)
         }
         desktopMain.dependencies {
             //Basic impl
