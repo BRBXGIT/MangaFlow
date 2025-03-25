@@ -1,6 +1,6 @@
 package com.example.mangaflow.core.repositories
 
-import com.example.mangaflow.core.data.local.MangaFlowUser
+import com.example.mangaflow.core.data.local.manga_flow_user_db.MangaFlowUser
 import com.example.mangaflow.core.data.network.models.user_access_token_response.UserAccessTokenResponse
 import com.example.mangaflow.core.data.network.utils.NetworkError
 import com.example.mangaflow.core.data.network.utils.Result
@@ -16,4 +16,6 @@ interface AuthScreenRepo {
     suspend fun upsertMangaFlowUser(user: MangaFlowUser)
 
     fun getMangaFlowUser(): Flow<List<MangaFlowUser>>
+
+    fun setIsAuthenticatedKey(isAuthenticated: Boolean)
 }

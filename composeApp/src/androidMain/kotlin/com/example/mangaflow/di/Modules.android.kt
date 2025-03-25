@@ -1,6 +1,8 @@
 package com.example.mangaflow.di
 
-import com.example.mangaflow.core.data.local.MangaFlowUserDbProvider
+import com.example.mangaflow.core.data.local.manga_flow_user_db.MangaFlowUserDbProvider
+import com.example.mangaflow.core.data.local.shared_prefs.SettingsProvider
+import com.example.mangaflow.core.data.local.shared_prefs.UserPreferences
 import com.example.mangaflow.core.data.network.ktor.AuthScreensKtorClient
 import com.example.mangaflow.core.data.network.ktor.createHttpClient
 import com.example.mangaflow.core.data.repositories.AuthScreenRepoImpl
@@ -23,6 +25,9 @@ actual val authScreenModule = module {
     }
     single {
         MangaFlowUserDbProvider(androidContext()).provideMangaFlowUserDb()
+    }
+    single {
+        UserPreferences(SettingsProvider(androidContext()).provideSettings())
     }
     singleOf(::AuthScreenRepoImpl).bind<AuthScreenRepo>()
     viewModelOf(::AuthScreenVM)

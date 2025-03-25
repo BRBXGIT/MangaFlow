@@ -3,7 +3,7 @@ package com.example.mangaflow.feature.auth_screen.screen.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mangaflow.common.functions.processNetworkErrorsForUi
-import com.example.mangaflow.core.data.local.MangaFlowUser
+import com.example.mangaflow.core.data.local.manga_flow_user_db.MangaFlowUser
 import com.example.mangaflow.core.data.network.utils.onError
 import com.example.mangaflow.core.data.network.utils.onSuccess
 import com.example.mangaflow.core.design_system.snackbars.SnackbarAction
@@ -21,8 +21,7 @@ class AuthScreenVM(
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _accessToken = MutableStateFlow<String?>(null)
-    val accessToken = _accessToken.stateIn(
+    val mangaFlowUser = repository.getMangaFlowUser().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         null
@@ -46,7 +45,6 @@ class AuthScreenVM(
                 )
             }
             response.onSuccess { data ->
-                _accessToken.value = data.accessToken
                 repository.upsertMangaFlowUser(
                     MangaFlowUser(
                         accessToken = data.accessToken,
@@ -58,5 +56,9 @@ class AuthScreenVM(
                 }
             }
         }
+    }
+
+    fun setIsAuthenticatedKey(isAuthenticated: Boolean) {
+        repository.setIsAuthenticatedKey(isAuthenticated)
     }
 }

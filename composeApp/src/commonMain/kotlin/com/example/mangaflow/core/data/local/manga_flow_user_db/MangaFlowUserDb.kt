@@ -1,4 +1,4 @@
-package com.example.mangaflow.core.data.local
+package com.example.mangaflow.core.data.local.manga_flow_user_db
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
