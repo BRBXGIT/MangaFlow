@@ -61,7 +61,7 @@ fun ColumnScope.AuthBlockCompactScreensSection(
             value = username,
             onValueChange = { username = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = "Username") },
+            placeholder = { Text(text = "Username") },
             leadingIcon = {
                 Icon(
                     painter = painterResource(MangaFlowIcons.User),
@@ -76,7 +76,7 @@ fun ColumnScope.AuthBlockCompactScreensSection(
             value = password,
             onValueChange = { password = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = "Password") },
+            placeholder = { Text(text = "Password") },
             leadingIcon = {
                 Icon(
                     painter = painterResource(MangaFlowIcons.Password),

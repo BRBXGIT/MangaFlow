@@ -21,15 +21,10 @@ class AuthScreenVM(
     private val dispatcherIo: CoroutineDispatcher
 ): ViewModel() {
 
-    val mangaFlowUser = repository.getMangaFlowUser().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        null
-    )
-
     fun fetchUserAccessToken(
         userName: String,
-        password: String
+        password: String,
+        onSuccess: () -> Unit
     ) {
         viewModelScope.launch(dispatcherIo) {
             val response = repository.getUserAccessToken(userName, password)
@@ -38,8 +33,8 @@ class AuthScreenVM(
                     SnackbarEvent(
                         message = processNetworkErrorsForUi(error),
                         action = SnackbarAction(
-                            name = "Refresh",
-                            action = { fetchUserAccessToken(userName, password) }
+                            name = "Try again",
+                            action = { fetchUserAccessToken(userName, password, onSuccess) }
                         )
                     )
                 )
@@ -51,14 +46,9 @@ class AuthScreenVM(
                         refreshToken = data.refreshToken
                     )
                 )
-                repository.getMangaFlowUser().collect {
-                    println("TAG: ${it[0]}")
-                }
+                repository.setIsAuthenticatedKey(true)
+                onSuccess()
             }
         }
-    }
-
-    fun setIsAuthenticatedKey(isAuthenticated: Boolean) {
-        repository.setIsAuthenticatedKey(isAuthenticated)
     }
 }

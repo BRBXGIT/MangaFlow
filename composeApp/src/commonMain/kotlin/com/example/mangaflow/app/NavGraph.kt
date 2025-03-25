@@ -4,14 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.mangaflow.common.functions.isBigScreen
+import com.example.mangaflow.core.data.local.shared_prefs.UserPreferences
 import com.example.mangaflow.feature.auth_screen.navigation.AuthScreenRoute
 import com.example.mangaflow.feature.auth_screen.navigation.authScreen
 import com.example.mangaflow.feature.bookmarks_screen.navigation.bookmarksScreen
+import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 import com.example.mangaflow.feature.home_screen.navigation.homeScreen
 import com.example.mangaflow.feature.home_screen.screen.HomeScreenVM
 import com.example.mangaflow.feature.manga_details_screen.navigation.mangaDetailsScreen
 import com.example.mangaflow.feature.profile_screen.navigation.profileScreen
 import org.koin.compose.KoinContext
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -23,10 +26,11 @@ fun NavGraph() {
     KoinContext {
         //Declare values here to don't fetch mangaLists multiple times
         val homeScreenVM = koinViewModel<HomeScreenVM>()
+        val userPreferences: UserPreferences = koinInject()
 
         val bigScreen = isBigScreen()
         NavHost(
-            startDestination = AuthScreenRoute,
+            startDestination = if(userPreferences.isUserRegistered()) HomeScreenRoute else AuthScreenRoute,
             navController = navController
         ) {
             homeScreen(
@@ -51,7 +55,8 @@ fun NavGraph() {
             )
 
             authScreen(
-                bigScreen = bigScreen
+                bigScreen = bigScreen,
+                navController = navController
             )
         }
     }

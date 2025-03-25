@@ -1,5 +1,6 @@
 package com.example.mangaflow.feature.auth_screen.navigation
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.mangaflow.feature.auth_screen.screen.common.AuthScreen
@@ -13,12 +14,14 @@ data object AuthScreenRoute
 
 @OptIn(KoinExperimentalAPI::class)
 fun NavGraphBuilder.authScreen(
-    bigScreen: Boolean
+    bigScreen: Boolean,
+    navController: NavController
 ) = composable<AuthScreenRoute> {
     val authScreenVM = koinViewModel<AuthScreenVM>()
 
     AuthScreen(
         viewModel = authScreenVM,
-        bigScreen = bigScreen
+        bigScreen = bigScreen,
+        navController = navController
     )
 }

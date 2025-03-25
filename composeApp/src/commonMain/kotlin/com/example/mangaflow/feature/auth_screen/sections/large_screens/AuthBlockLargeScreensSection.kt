@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -66,7 +65,7 @@ fun AuthBlockLargeScreensSection(
                 value = username,
                 onValueChange = { username = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Username") },
+                placeholder = { Text(text = "Username") },
                 leadingIcon = {
                     Icon(
                         painter = painterResource(MangaFlowIcons.User),
@@ -81,7 +80,7 @@ fun AuthBlockLargeScreensSection(
                 value = password,
                 onValueChange = { password = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Password") },
+                placeholder = { Text(text = "Password") },
                 leadingIcon = {
                     Icon(
                         painter = painterResource(MangaFlowIcons.Password),

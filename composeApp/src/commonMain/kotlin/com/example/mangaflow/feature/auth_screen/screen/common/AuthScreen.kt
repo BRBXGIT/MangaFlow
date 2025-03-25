@@ -4,26 +4,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.example.mangaflow.core.design_system.theme.mColors
 import com.example.mangaflow.feature.auth_screen.screen.compact_screens.AuthCompactScreens
 import com.example.mangaflow.feature.auth_screen.screen.large_screens.AuthLargeScreens
+import com.example.mangaflow.feature.home_screen.navigation.HomeScreenRoute
 
 @Composable
 fun AuthScreen(
     viewModel: AuthScreenVM,
-    bigScreen: Boolean
+    bigScreen: Boolean,
+    navController: NavController
 ) {
-    val mangaFlowUser by viewModel.mangaFlowUser.collectAsStateWithLifecycle()
-    LaunchedEffect(mangaFlowUser) {
-        if(!mangaFlowUser.isNullOrEmpty()) {
-            viewModel.setIsAuthenticatedKey(true)
-        }
-    }
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -33,14 +26,22 @@ fun AuthScreen(
             AuthLargeScreens(
                 innerPadding = innerPadding,
                 onAuthenticateClick = { userName, password ->
-                    viewModel.fetchUserAccessToken(userName, password)
+                    viewModel.fetchUserAccessToken(
+                        userName = userName,
+                        password = password,
+                        onSuccess = { navController.navigate(HomeScreenRoute) }
+                    )
                 }
             )
         } else {
             AuthCompactScreens(
                 innerPadding = innerPadding,
-                onAuthenticateClick = { userName, password ->  
-                    
+                onAuthenticateClick = { userName, password ->
+                    viewModel.fetchUserAccessToken(
+                        userName = userName,
+                        password = password,
+                        onSuccess = { navController.navigate(HomeScreenRoute) }
+                    )
                 }
             )
         }
