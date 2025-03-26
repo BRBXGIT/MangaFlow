@@ -37,6 +37,8 @@ kotlin {
             implementation(libs.koin.androidx.compose)
             //Coil
             implementation(libs.ktor.client.android)
+            //SplashScreen
+            implementation(libs.core.splashscreen)
         }
         commonMain.dependencies {
             //Basic impl
