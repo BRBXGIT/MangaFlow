@@ -38,29 +38,29 @@ fun MangaDetailsScreen(
     val mangaLoadingState  = viewModel.mangaDetailsLoading.collectAsStateWithLifecycle().value
 
     val topBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    manga?.let {
-        Scaffold(
-            topBar = {
-                MangaDetailsScreenTopBar(
-                    mangaTitle = if(manga.attributes.title.en != "") manga.attributes.title.en else "No title provided :0",
-                    mangaLoadingState = mangaLoadingState,
-                    scrollBehavior = topBarScrollBehavior,
-                    onNavIconClick = { navController.navigateUp() },
-                    showNavRail = bigScreen
-                )
-            },
-            modifier = Modifier
-                .fillMaxSize()
-                .background(mColors.background)
-                .then(
-                    if(bigScreen) {
-                        Modifier.padding(start = 80.dp)
-                    } else {
-                        Modifier.padding(start = 0.dp)
-                    }
-                )
-                .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
-        ) { innerPadding ->
+    Scaffold(
+        topBar = {
+            MangaDetailsScreenTopBar(
+                mangaTitle = if(manga?.attributes?.title?.en != "") manga?.attributes?.title?.en else "No title provided :0",
+                mangaLoadingState = mangaLoadingState,
+                scrollBehavior = topBarScrollBehavior,
+                onNavIconClick = { navController.navigateUp() },
+                showNavRail = bigScreen
+            )
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .background(mColors.background)
+            .then(
+                if(bigScreen) {
+                    Modifier.padding(start = 80.dp)
+                } else {
+                    Modifier.padding(start = 0.dp)
+                }
+            )
+            .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+    ) { innerPadding ->
+        manga?.let {
             val mangaChaptersLanguage by viewModel.mangaChaptersLanguage.collectAsStateWithLifecycle()
             val mangaChaptersLoadingState by viewModel.mangaChaptersLoading.collectAsStateWithLifecycle()
             val mangaChapters by viewModel.mangaChapters.collectAsStateWithLifecycle()
@@ -122,6 +122,8 @@ fun MangaDetailsScreen(
             }
         }
     }
+
+
 
     if(bigScreen) {
         NavRail(navController)
